@@ -434,7 +434,7 @@ input[type="checkbox"].toggle:checked + label::before{
 
     background-color: rgb(var(--shadow-color),var(--shadow-color),var(--shadow-color));
 
-    top: 5vw;
+    top: 2em;
     left: 0;
 
     min-width: 6em;
@@ -500,7 +500,11 @@ input[type="checkbox"].toggle:checked + label::before{
     }
 
     .dropdown img{
-        max-width: 6vw;
+        max-width: clamp(1em,2em,2em);
+    }
+
+    #dropdown-menu{
+        top: clamp(1.5em,2em,2em);
     }
 }
 
