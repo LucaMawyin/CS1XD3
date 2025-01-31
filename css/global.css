@@ -493,6 +493,11 @@ input[type="checkbox"].toggle:checked + label::before{
     .dropdown {
         visibility: visible;
     }
+
+
+    #main{
+        font-size: clamp(4vw, 1vw, 3vw);
+    }
 }
 
 @media only screen and (max-width: 60em){
