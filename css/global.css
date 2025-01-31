@@ -446,6 +446,7 @@ input[type="checkbox"].toggle:checked + label::before{
 
 #dropdown-menu a{
     color: rgb(var(--opposite-color),var(--opposite-color),var(--opposite-color));
+    visibility: none;
 }
 
 .dropbtn {
@@ -480,6 +481,10 @@ input[type="checkbox"].toggle:checked + label::before{
     visibility: visible;
 }
 
+.dropdown:hover #dropdown-menu a{
+    transition-delay: 0.25s;
+    visibility: visible;
+}
 
 @media only screen and (max-width: 768px), (orientation: portrait){
     .entry a{
