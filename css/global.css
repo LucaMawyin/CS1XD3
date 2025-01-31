@@ -467,8 +467,12 @@ input[type="checkbox"].toggle:checked + label::before{
     animation: moveUpClose var(--transition-time) ease-in-out forwards !important;
 }
 
+.dropdown:not(:hover) .dropbtn {
+    animation: moveDown var(--transition-time) ease-in-out forwards !important;
+}
+
 .dropdown:hover .dropbtn{
-    visibility: visible;
+    visibility: hidden;
     opacity: 0;
 }
 
@@ -476,9 +480,6 @@ input[type="checkbox"].toggle:checked + label::before{
     visibility: visible;
 }
 
-#dropdown-menu:hover .dropbtn{
-    opacity:0;
-}
 
 @media only screen and (max-width: 768px), (orientation: portrait){
     .entry a{
