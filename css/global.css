@@ -455,6 +455,7 @@ input[type="checkbox"].toggle:checked + label::before{
 
 .dropdown img{
     max-width: 2em;
+    transition: ease var(--transition-time);
 }
 
 .dropdown:hover #dropdown-menu{
@@ -506,7 +507,7 @@ input[type="checkbox"].toggle:checked + label::before{
     }
 
     .dropdown img{
-        max-width: clamp(1em,2em,2em);
+        max-width: clamp(2em,3em,3em);
     }
 
     #dropdown-menu{
