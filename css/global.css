@@ -8,16 +8,17 @@
     --opposite-color: 255;
 }
 
-body{
-    font-family: "Geist Mono", Helvetica, sans-serif;
-    height:100%;
-    margin:0;
-    padding:0;
-    user-select: none;
+html,body{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
-html{
-    height:100%;
+body{
+    font-family: "Geist Mono", Helvetica, sans-serif;
+    user-select: none;
 }
 
 body a{
@@ -29,7 +30,6 @@ body a{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90vh;
     font-size: clamp(1rem, 2vw, 2rem);
 }
 
@@ -176,8 +176,6 @@ body a{
 
     top: 1vh;
     left: 1.5vw;
-
-    max-width: fit-content;
 }
 
 .nav-bar div{
@@ -317,8 +315,8 @@ input[type="checkbox"].toggle:checked + label::before{
     justify-content: center;
 
     flex-direction: column;
-    top: 1em;
-    right: 1em;
+    top:1%;
+    right:1%;
 }
 
 .logos img{
@@ -337,8 +335,7 @@ input[type="checkbox"].toggle:checked + label::before{
     display: flex;
     margin-top: 10vh;
     flex-direction: column;
-
-    width: 100%;
+    justify-content: center;
 }
 
 .entry {
@@ -347,8 +344,6 @@ input[type="checkbox"].toggle:checked + label::before{
     margin-bottom: 2em;
     flex-wrap: nowrap;
     transition: ease var(--transition-time);
-    cursor: default;
-
     margin-left: 1vw;
     margin-right: 1vw;
 }
@@ -367,8 +362,8 @@ input[type="checkbox"].toggle:checked + label::before{
 }
 
 #date {
-    width: 25em;
-    min-width: 20em;
+    padding-left: 1%;
+    padding-right: 1%;
     text-align: center;
     flex-shrink: 0;
 }
@@ -386,7 +381,7 @@ input[type="checkbox"].toggle:checked + label::before{
     display: flex;
     justify-content: center;
     margin-top: 5vh;
-    font-size: clamp(1em, 2vw, 3em);
+    font-size: 2vw;
     height: fit-content;
     cursor: default;
 }
@@ -491,11 +486,19 @@ input[type="checkbox"].toggle:checked + label::before{
     visibility: visible;
 }
 
-@media only screen and (max-width: 768px), (orientation: portrait){
+@media only screen and (max-width: 768px){
+
+    .dropdown img{
+        max-width: 4vw;
+    }
+
     .entry a{
         flex-direction: column;
-        align-items: flex-start;
+        text-align: center;
     }
+}
+
+@media only screen and (max-width: 480px){
 
     .nav-bar {
         visibility: hidden;
@@ -506,15 +509,19 @@ input[type="checkbox"].toggle:checked + label::before{
     }
 
     #main{
-        font-size: clamp(4vw, 1vw, 3vw);
-    }
-
-    .dropdown img{
-        max-width: clamp(2em,3em,3em);
+        font-size: 4vw;
     }
 
     #dropdown-menu{
         top: clamp(1.5em,2em,2em);
+    }
+
+    .page-title{
+        font-size: 3vw;
+    }
+
+    .dropdown img{
+        max-width: 9vw;
     }
 }
 
@@ -526,12 +533,5 @@ input[type="checkbox"].toggle:checked + label::before{
 
     .dropdown {
         visibility: visible;
-    }
-}
-
-@media only screen and (max-width: 450px), (orientation:portrait){
-
-    .dropdown img{
-        max-width: 9vw;
     }
 }
