@@ -1,20 +1,31 @@
+html{
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+body,html{
+    height: 100%;
+}
+
 #wireframe-layout{
     flex-wrap: wrap;
     box-sizing: border-box;
-    width: 100%;
     display: flex;
     flex-direction: row;
+
+    font-weight: 750;
 }
 
 .wire-main{
     width:20%;
-    border: 5px solid black;
     display: block;
     box-sizing: border-box;
 }
 
 .wire-sub{
     width: 80%;
+
     box-sizing: border-box;
     transition: ease 0.3s;
     flex-wrap: wrap;
@@ -24,11 +35,17 @@
     width: 100%;
     object-fit: contain;
     margin-bottom: 1vh;
+    object-fit: cover;
 }
 
-.wire-main p{
+.wire-main p,h1,a{
     margin-left: 1em;
     margin-right: 1em;
+    text-align: center;
+}
+
+.wire-main h1{
+    font-size: 1.5em;
 }
 
 #wireframe-layout a{
@@ -50,7 +67,7 @@
     box-sizing: border-box;
 }
 
-@media (max-width:1024px) {
+@media (orientation:portrait) and (max-width:1024px) and (min-width: 480px){
 
     #wireframe-layout{
         flex-direction: column;
@@ -70,16 +87,22 @@
     }
 }
 
-@media (max-width: 480px) {
-    .sub div {
+@media (max-width: 480px) and (orientation: portrait) {
+
+    #wireframe-layout{
+        flex-direction: column;
+    }
+
+    .wire-main{
         width: 100%;
     }
 
-    .wire-main {
+    .wire-sub
+    {
         width: 100%;
     }
 
-    .wire-sub {
+    .sub div{
         width: 100%;
     }
 }
