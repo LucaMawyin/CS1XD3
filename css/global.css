@@ -214,6 +214,8 @@ body a{
 
 .light-mode a{
     color: black;
+    transition: ease var(--transition-time);
+
 }
 
 .dark-mode{
@@ -227,6 +229,8 @@ body a{
 
 .dark-mode a{
     color: white;
+    transition: ease var(--transition-time);
+
 }
 
 .main-sub{
