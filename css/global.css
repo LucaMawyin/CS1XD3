@@ -337,9 +337,6 @@ input[type="checkbox"].toggle:checked + label::before{
     display: flex;
     margin-top: 10vh;
     flex-direction: column;
-
-    margin-left: 1vw;
-    margin-right: 1vw;
 }
 
 .entry {
@@ -349,6 +346,9 @@ input[type="checkbox"].toggle:checked + label::before{
     flex-wrap: nowrap;
     transition: ease var(--transition-time);
     cursor: default;
+
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 .entry:hover{
