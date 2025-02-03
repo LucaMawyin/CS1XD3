@@ -1,5 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
+@import url("tile.css");
+
 
 :root{
     --transition-time: 0.3s;
@@ -188,7 +190,7 @@ body a{
 
 .nav-bar a{
     text-decoration: none;
-    transition: ease-in 0.2s;
+    transition: ease-in 0.1s;
     object-fit: contain;
 }
 
@@ -212,7 +214,6 @@ body a{
 
 .light-mode a{
     color: black;
-    transition: ease var(--transition-time);
 }
 
 .dark-mode{
@@ -226,7 +227,6 @@ body a{
 
 .dark-mode a{
     color: white;
-    transition: ease var(--transition-time);
 }
 
 .main-sub{
@@ -372,7 +372,7 @@ input[type="checkbox"].toggle:checked + label::before{
     flex: 1;
     word-wrap: break-word;
     white-space: normal;
-    margin-left: 2em;
+    margin-left: 1em;
     margin-right: 1em;
 }
 
@@ -486,7 +486,30 @@ input[type="checkbox"].toggle:checked + label::before{
     visibility: visible;
 }
 
-@media only screen and (max-width: 768px){
+.dropdown:hover #dropdown-menu a:hover{
+    transition-delay: 0s;
+}
+
+#about-me{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+#about-me img{
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 10vw;
+}
+
+#self{
+    width:20vw !important;
+}
+
+@media (max-width: 768px){
 
     .dropdown img{
         max-width: 4vw;
@@ -496,9 +519,23 @@ input[type="checkbox"].toggle:checked + label::before{
         flex-direction: column;
         text-align: center;
     }
+
+    #about-me{
+        flex-direction: column;
+        gap: 0;
+    }
+
+    #about-me img{
+        width: 15vw;
+        height: auto;
+    }
+    
+    #self{
+        width:30vw !important;
+    }
 }
 
-@media only screen and (max-width: 480px){
+@media (max-width: 480px){
 
     .nav-bar {
         visibility: hidden;
