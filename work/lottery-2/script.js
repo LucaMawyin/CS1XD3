@@ -1,5 +1,5 @@
 
-window.addEventListener("DOMContentLoaded", function(e){
+window.addEventListener("DOMContentLoaded", () => {
     
     const ball = new Array(100);
 
