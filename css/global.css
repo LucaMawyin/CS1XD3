@@ -340,7 +340,6 @@ input[type="checkbox"].toggle:checked + label::before{
     margin-top: 10vh;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 .entry {
@@ -494,7 +493,6 @@ input[type="checkbox"].toggle:checked + label::before{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5%;
     padding-top: 3%;
     padding-bottom: 3%;
 }
@@ -516,6 +514,8 @@ input[type="checkbox"].toggle:checked + label::before{
     background-color: red;
     text-align: center;
     transition: ease var(--transition-time);
+    width: 200px;
+    align-self: center;
 }
 
 #try-again:hover{
