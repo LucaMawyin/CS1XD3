@@ -2,12 +2,6 @@
 @import url("global.css");
 
 #tile-content{
-    align-items: center;
-    display: flex;
-}
-
-.row{
-    display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -17,6 +11,8 @@
     text-align: center;
     align-content: center;
     margin: 1%;
+
+    min-width: 23%;
 
     transition: ease var(--transition-time);
 }

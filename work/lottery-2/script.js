@@ -43,6 +43,7 @@ window.addEventListener("load", function(e){
     let score = 0;
     let nums = new Map();
     let i = "";
+    let again;
 
     do{
         i = prompt("Pick a ball from 0 - 99");
@@ -64,14 +65,16 @@ window.addEventListener("load", function(e){
             // Red ball
             if (ball[i].colour == "Red"){
                 score -= ball[i].value;
-                alert(`${ball[i].colour}\nValue: ${ball[i].value}\nScore: ${score}`);
+                alert(`${ball[i].colour}\nValue: ${ball[i].value}`);
             }
 
             // User got white ball
             // Just gonna tell them final score in seperate alert
             else{
                 score += ball[i].value;
-                alert(`${ball[i].colour}\nValue: ${ball[i].value}`);
+                alert(`${ball[i].colour}\nValue: ${ball[i].value}\nScore: ${score}`);
+                again = confirm("Would you like to go again?");
+
             }
         }
 
@@ -85,7 +88,7 @@ window.addEventListener("load", function(e){
             alert("Number out of Range");
         }
 
-    }while (ball[i].colour != "White");
+    }while (again && ball[i].colour != "Red");
 
     alert(`Final Score: ${score}`);
 });
