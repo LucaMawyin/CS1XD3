@@ -340,6 +340,7 @@ input[type="checkbox"].toggle:checked + label::before{
     margin-top: 10vh;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .entry {
@@ -506,6 +507,20 @@ input[type="checkbox"].toggle:checked + label::before{
 
 #self{
     width:20vw !important;
+}
+
+#try-again{
+    padding-left: 1%;
+    padding-right: 1%;
+    color: rgb(var(--opposite-color),var(--opposite-color),var(--opposite-color));
+    background-color: red;
+    text-align: center;
+    transition: ease var(--transition-time);
+}
+
+#try-again:hover{
+    color: rgb(var(--shadow-color),var(--shadow-color),var(--shadow-color));
+    box-shadow: 0px 0px 10px 5px rgba(var(--shadow-color), var(--shadow-color), var(--shadow-color), 0.5);
 }
 
 @media (max-width: 768px){

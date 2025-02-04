@@ -1,6 +1,5 @@
 
-function quizPrompt(){
-
+window.addEventListener("load", function (e){
     let yes_no;
 
     do{
@@ -38,6 +37,11 @@ function quizPrompt(){
 
         response = prompt(`What is ${q}: `);
 
+        while (isNaN(response) || response === null){
+            alert("Invalid Input")
+            response = prompt(`What is ${q}: `);
+        }
+
         if (parseInt(response) == ans){
             alert("CORRECT!");
         }
@@ -49,4 +53,4 @@ function quizPrompt(){
         yes_no = confirm("Would you like to play again?");
         
     }while (yes_no);
-}
+});
