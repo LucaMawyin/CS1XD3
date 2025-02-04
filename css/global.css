@@ -86,7 +86,7 @@ body a{
 
 .hidden-link {
     opacity: 0;
-    animation: moveUp 1.25s ease-in forwards 1.25s;
+    animation: moveUp 1s ease-in forwards 1s;
     margin-bottom: 0.75em;
 }
 

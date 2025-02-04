@@ -50,30 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function checkToggle() {
 
-        githubImg.style.opacity = 0;
+        if (toggleSwitch.checked) {
 
-        setTimeout(() => {
-            if (toggleSwitch.checked) {
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("light-mode");
 
-                document.body.classList.add("dark-mode");
-                document.body.classList.remove("light-mode");
+            githubImg.src = "images/github-light.png";
 
-                githubImg.src = "images/github-light.png";
+            localStorage.setItem('theme', 'dark');
 
-                localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.remove("dark-mode");
+            document.body.classList.add("light-mode");
 
-            } else {
-                document.body.classList.remove("dark-mode");
-                document.body.classList.add("light-mode");
+            githubImg.src = "images/github-dark.png";
 
-                githubImg.src = "images/github-dark.png";
-
-                localStorage.setItem('theme', 'light');
-            }
-        }, 100);
-
-
-        githubImg.style.opacity = 1;
+            localStorage.setItem('theme', 'light');
+        }
     }
 
     if (toggleSwitch) {
