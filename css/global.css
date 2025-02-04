@@ -393,11 +393,6 @@ input[type="checkbox"].toggle:checked + label::before{
 #jp-title{
     margin-left: 1em;
     margin-right: 1em;
-    transition: ease var(--transition-time);
-}
-
-#jp-title:hover{
-    transform: scale(1.1);
 }
 
 #jp-content{

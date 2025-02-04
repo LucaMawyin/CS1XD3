@@ -3,8 +3,8 @@ function quizPrompt(){
 
     let response = "";
 
-    alert("Type `exit` to leave");
-
+    let yes_no="";
+    
     do{
 
         // Setting numbers
@@ -39,13 +39,6 @@ function quizPrompt(){
 
         response = prompt(`What is ${q}: `);
 
-        if (response.toLocaleLowerCase() == "exit"){
-            alert("Goodbye");
-            window.open("../../work.html");
-            window.close();
-            break;
-        }
-
         if (parseInt(response) == ans){
             alert("CORRECT!");
         }
@@ -53,6 +46,8 @@ function quizPrompt(){
         else{
             alert(`Sorry, the answer is ${ans}`);
         }
+
+        yes_no = prompt("Would you like to play again?");
         
-    }while (true)
+    }while (!yes_no.startsWith("n"));
 }
