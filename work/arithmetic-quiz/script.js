@@ -1,10 +1,8 @@
 
 function quizPrompt(){
 
-    let response = "";
+    let yes_no;
 
-    let yes_no="";
-    
     do{
 
         // Setting numbers
@@ -12,6 +10,7 @@ function quizPrompt(){
         let num2 = Math.floor(Math.random() * 201) - 100;
         let eq = Math.floor(Math.random() * 3);
 
+        let response;
         let ans;
         let q;
 
@@ -47,7 +46,7 @@ function quizPrompt(){
             alert(`Sorry, the answer is ${ans}`);
         }
 
-        yes_no = prompt("Would you like to play again?");
+        yes_no = confirm("Would you like to play again?");
         
-    }while (!yes_no.startsWith("n"));
+    }while (yes_no);
 }
