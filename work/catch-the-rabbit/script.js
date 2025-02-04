@@ -1,37 +1,43 @@
 function setInvisible(index, rabbits){
 
-    for (let i = 0; i < 4; i++){
-    
-        if (i !== index){
-            rabbits[i].style.visibility = "hidden";
-        }
-        else{
-            rabbits[i].style.visibility = "visible";
-        }
+    for (let i = 0; i < rabbits.length; i++){
+        rabbits[i].style.visibility = (i !== index) ? "hidden" : "visible";
     }
 }
 
+window.addEventListener("DOMContentLoaded", () => {
 
-const rabbits = Array(4);
-let ri = 0;
+    // Flexibility for number of rabbits
+    const rabbits = Array(4);
+    let ri = 0;
+    let count = 0;
 
-for (let i = 0; i < 4; i++){
-    rabbits[i] = document.getElementById(`rabbit${(i+1)}`);
-}
-setInvisible(ri, rabbits);
+    for (let i = 0; i < rabbits.length; i++){
+        rabbits[i] = document.getElementById(`rabbit${(i+1)}`);
 
+        // Setting listener for each rabbit
+        rabbits[i].addEventListener("mouseover", () =>{
 
-rabbits[ri].addEventListener("mouseover", () => {
+            // Resetting index if it's at the end
+            ri = (ri === rabbits.length-1) ? 0 : ri+1;
+            setInvisible(ri,rabbits);
+            count++;
 
-    console.log(ri)
-    ri = (ri === 3) ? ri = 0 : ri+1;
+            // Taunts
+            if (count === 4){
+                document.getElementById("noeggs").style.visibility = "visible";
+            }
+            else if (count === 20){
+                document.getElementById("slow").style.visibility = "visible";
+                document.getElementById("noeggs").style.visibility = "hidden";
+            }
+        });
+    }
 
-    setInvisible(ri, rabbits);
-
-    rabbits[ri].addEventListener("mouseover", () => {
-        ri = (ri === 3) ? 0 : ri + 1;
-        setInvisible(ri, rabbits);
-    });
+    // Starting point
+    setInvisible(ri,rabbits);
+    document.getElementById("noeggs").style.visibility = "hidden";
+    document.getElementById("slow").style.visibility = "hidden";
 });
 
 
