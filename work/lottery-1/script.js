@@ -1,5 +1,5 @@
 
-window.addEventListener("load", function(e){
+window.addEventListener("DOMContentLoaded", function(e){
     let colour = "Red"
 
     // Randomly changing to white

@@ -390,19 +390,6 @@ input[type="checkbox"].toggle:checked + label::before{
     cursor: default;
 }
 
-#jp-title{
-    margin-left: 1em;
-    margin-right: 1em;
-}
-
-#jp-content{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 2em;
-    margin-right: 2em;
-}
-
 #back{
     padding-top: 3em;
     position: relative;
