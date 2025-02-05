@@ -16,6 +16,7 @@ html,body{
     height: 100%;
     padding: 0;
     margin: 0;
+    flex-shrink: 0;
 }
 
 body{
@@ -230,7 +231,6 @@ body a{
 .dark-mode a{
     color: white;
     transition: ease var(--transition-time);
-
 }
 
 .main-sub{
@@ -397,6 +397,11 @@ input[type="checkbox"].toggle:checked + label::before{
     justify-content: center;
     font-size: 1.2em;
     font-weight: 600;
+
+    text-align: center;
+    padding-bottom: 1em;
+
+    height: 3vh;
 }
 
 #back a:hover{
@@ -409,7 +414,6 @@ input[type="checkbox"].toggle:checked + label::before{
     position: absolute;
     top: 1em;
     left: 1em;
-
 }
 
 #dropdown-menu{

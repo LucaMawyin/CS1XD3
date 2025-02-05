@@ -92,16 +92,3 @@ window.addEventListener("DOMContentLoaded", () => {
 
     alert(`Final Score: ${score}`);
 });
-
-// If user presses try again button
-document.addEventListener("DOMContentLoaded", () => {
-
-    const btn = document.getElementById("try-again");
-
-    if (btn){
-        btn.addEventListener("click", (e) =>{
-            location.reload();
-        });
-    }
-
-});

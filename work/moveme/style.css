@@ -1,0 +1,96 @@
+
+@import url("../../css/global.css");
+
+#container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    border: 10px solid rgb(var(--shadow-color),var(--shadow-color),var(--shadow-color));
+    border-radius: 70px;
+}
+
+#moveme {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    border-radius: 100px;
+    border: 10px solid rgb(var(--shadow-color),var(--shadow-color),var(--shadow-color));
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    width: 30%;
+    align-items: center;
+}
+
+.directions {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap-reverse;
+    gap: 5%;
+    justify-content: center;
+}
+
+.directions div{
+    flex: 1 1 25%;
+    text-align: center;
+    background-color: red;
+    margin-bottom: 5%;
+    transition: ease var(--transition-time);
+
+}
+
+.directions div:hover{
+    box-shadow: 0px 0px 10px 5px rgba(var(--shadow-color), var(--shadow-color), var(--shadow-color), 0.5);
+}
+
+#randmove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 25%;
+    text-align: center;
+    background-color: red;
+    margin-bottom: 5%;
+    transition: ease var(--transition-time);
+    min-height: 50px;
+}
+
+#randmove:hover{
+    box-shadow: 0px 0px 10px 5px rgba(var(--shadow-color), var(--shadow-color), var(--shadow-color), 0.5);
+}
+
+.game{
+    margin-top: 10vh;
+    width: 100%;
+    display: flex;
+    gap: 5%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width:900px) {
+    .game{
+        flex-direction: column;
+    }
+    .directions{
+        margin-top: 1%;
+        min-width: 25%;
+    }
+
+    .directions div{
+        flex: 1 1 45%;
+        text-align: center;
+        background-color: red;
+        margin-bottom: 5%;
+        transition: ease var(--transition-time);
+    
+    }
+}

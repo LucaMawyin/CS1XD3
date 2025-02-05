@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--
+To be used in exercises. 
+
+NOTE ON ABSOLUTE POSITIONING: When an element has position:absolute, you can place 
+anywhere on the page you want. You can specify a pixel position of the top, left
+corner using the top and left CSS properties. If the element is a child of
+<body> this will position it relative to the top left corner of the page.
+
+If an element with absolute position is inside another element with absolute
+position (as the "moveme" div is below) you specify top and left to move it 
+relative to the top left corner of the containing element. So for this element,
+top: 0px and left: 0px puts it in the top left corner of the "container" div.
+
+-->
+<html>
+
+<head>
+    <title>Move Me</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="light-mode">
+
+    <div class="header">
+
+        <div class="page-title">
+            <h1>Move Me</h1>
+        </div>
+
+        <nav class="nav-bar">
+            <p>|</p>
+            <div><a href="../../index.html">Home</a></div>
+            <p>|</p>
+            <div><a href="../../about.html">About</a></div>
+            <p>|</p>
+            <div><a href="../../work.html">Work</a></div>
+            <p>|</p>
+            <div><a href="../../journal.html">Journal</a></div>
+            <p>|</p>
+            <div><a href="https://cs1xd3.cas.mcmaster.ca/~dovbenys/team/index.html" target="_blank">Team</a></div>
+            <p>|</p>
+        </nav>
+
+        <div class="logos">
+            <a href="https://github.com/LucaMawyin" target="_blank"><img id="github-img" src="../../images/github-dark.png" alt="GitHub"></a>
+            <a href="https://www.linkedin.com/in/lucamawyin/" target="_blank"><img src="../../images/linkedin.png" alt="LinkedIn"></a>
+            <a href="mailto:lucamawyin@gmail.com"><img src="../../images/gmail.png" alt="Gmail"></a>
+        </div>
+
+    </div>
+
+    <div class="game">
+
+        <div id="container">
+            <div id='moveme'></div>
+        </div>        
+
+        <div class="buttons">
+            <div class="directions">
+                <div id="left"><h2>Left</h2></div>
+                <div id="down"><h2>Down</h2></div>
+                <div id="right"><h2>Right</h2></div>
+                <div id="up"><h2>Up</h2></div>
+            </div>
+
+            <div class="directions" id="randmove">
+                <h2>Random Move</h2>
+            </div>            
+        </div>
+
+
+
+    </div>
+
+
+    <script src="../script.js" defer></script>
+
+    <script>
+        function randInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        const container = document.getElementById("container");
+        const box = document.getElementById("moveme");
+
+        function randMove() {
+            if (confirm("Do you want to randomly move the box")) {
+                box.style.top = `${randInt(0, 400)}px`;
+                box.style.left = `${randInt(0, 400)}px`;
+            }
+        }
+
+        function move(direction) {
+            const input = direction;
+
+            const top = Number(box.style.top.slice(0, -2));
+            const left = Number(box.style.left.slice(0, -2));
+            switch (input) {
+                case "u":
+                    if (top < 20 && top > 0){
+                        box.style.top = "0px"
+                    }
+                    else{
+                        if (top <= 0){
+                            return false;
+                        }
+                        box.style.top = `${top - 20}px`;
+                    }
+
+                    break;
+                case "d":
+                    if (top > 380 && top < 400){
+                        box.style.top = "400px"
+                    }
+                    else{
+                        if (top >= 400){
+                            return false;
+                        }
+                        box.style.top = `${top + 20}px`;
+                    }
+                    break;
+                case "l":
+                    if (left < 20 && left > 0){
+                        box.style.left = "0px"
+                    }
+                    else{
+                        if (left <= 0){
+                            return false;
+                        }
+                        box.style.top = `${left - 20}px`;
+                    }
+                    break;
+                case "r":
+                    if (left > 380 && left < 400){
+                        box.style.left = "400px"
+                    }
+                    else{
+                        if (left >= 400){
+                            return false;
+                        }
+                        box.style.left = `${left + 20}px`;
+                    }
+                    break;
+                    
+                case "q":
+                    alert('ok sure');
+                    break;
+                default:
+                    alert('invalid input');
+            }
+        }
+
+        const up = document.getElementById("up").addEventListener("click", () => move("u"));
+        const down = document.getElementById("down").addEventListener("click", () => move("d"));
+        const left = document.getElementById("left").addEventListener("click", () => move("l"));
+        const right = document.getElementById("right").addEventListener("click", () => move("r"));
+        const randmove = document.getElementById("randmove").addEventListener("click", () => randMove());
+
+    </script>
+</body>
+
+</html>

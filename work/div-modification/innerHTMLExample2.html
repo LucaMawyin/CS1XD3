@@ -1,18 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width">
-    <title>Arithmetic Quiz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Simple innerHTML Example</title>
     <link rel="stylesheet" href="../../css/global.css">
 </head>
-
 
 <body class="light-mode">
 
     <div class="header">
 
         <div class="page-title">
-            <h1 id="jp-title">Arithmetic Quiz</h1>
+            <h1>Div Modification</h1>
         </div>
 
         <nav class="nav-bar">
@@ -37,7 +38,12 @@
 
     </div>
 
-    <div class="content">
+    <div class="content" style="text-align: center;">
+        <div id='target'></div>
+    </div>
+
+    <div class="content" style="margin-top: 2vh;">
+        <a id="try-again" href="#"><h2>Try Again</h2></a>
     </div>
 
     <nav id="back">
@@ -56,5 +62,27 @@
     </div>
 
     <script src="../script.js" defer></script>
-    <script src="script.js" defer></script>
+
+    <script defer>
+        let input;
+        while (true) {
+            input = Number(prompt("Enter a positive integer: "));
+            if (Number.isNaN(input) || !Number.isInteger(input) || input < 0) {
+                alert("Enter a valid positive integer");
+                continue;
+            } else {
+                changeDiv();
+                break;
+            }
+        }
+
+        function changeDiv() {
+            alert("Press OK to see me change the contents of my div.");
+            for (let i = 0; i < input; i++) {
+                document.getElementById("target").innerHTML += `<p>${i + 1}</p>`
+            }
+        }
+    </script>
 </body>
+
+</html>
