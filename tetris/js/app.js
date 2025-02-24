@@ -1,6 +1,24 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Forcing user to go through the home screen
+    if (!localStorage.getItem('visitedIndex') || localStorage.getItem('player') === null)
+    {
+        window.location.href = 'index.html';
+        localStorage.setItem('visitedIndex', true);
+    }
+    else
+    {
+        localStorage.removeItem('visitedIndex');
+    }
+
+    // User needs to enter initials every time they play
+    let name = localStorage.getItem('player');
+    localStorage.removeItem('player');
+    let highScores = JSON.parse(localStorage.getItem('highScores'));
+    let highNames = JSON.parse(localStorage.getItem('highNames'));
+
+
     // HTML elements
     const grid = document.querySelector('.grid');
     const scoreDisp = document.querySelector('#score');
@@ -80,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const shapes = [shape_L, shape_J, shape_T, shape_S, shape_Z, shape_I, shape_O];
     const colours = ["#ffb700", "#0000ff", "#a000ff", "#00ff00", "#ff0000", "#00ffee", "#ffe900"];
 
+    // Position variables
     let currentPosition;
     let currentBlock;
     let currentRotation;
@@ -88,9 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextRotation = Math.floor(Math.random()*shapes[nextBlock].length);
     let nextPiece = shapes[nextBlock][nextRotation];
 
+    // Start game
     spawn();
     showNext();
-
 
     // Block generation
     function spawn(){
@@ -150,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Remove block
     function remove() {
         current.forEach(index => {
             squares[currentPosition + index].style.backgroundColor = "";
@@ -158,32 +178,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Moving down method
+    // Moving down
     function down(){
 
+        // If paused go back
         if (paused) return;
 
-        // If it has not reached the bottom keep on moving
+        // If not at bottom keep moving
         if (!checkBottom()){
             remove();
             currentPosition += width;
             show();
         }
 
+        // If reached bottom spawn next block
         else
         {
             next();
         }
     }
 
+    // Default drop speed
     timerId = setInterval(down, dropSpeed);
 
+    // Check if block has reached bottom
     function checkBottom() {
         return current.some(index => 
             squares[currentPosition + index + width]?.classList.contains('taken')
         );
     }
 
+    // Next block
     function next() {
 
         // Turning each untaken square to taken
@@ -204,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // If any element is at edge then no more moving left
         const edge = current.some(index => (currentPosition + index) % width === 0);
-        const collision = current.some(index => squares[currentPosition + index - 1].classList.contains('taken'));
+        const collision = current.some(index => squares[currentPosition + index - 1]?.classList.contains('taken'));
 
         if (!edge && !collision){
             currentPosition -= 1;
@@ -219,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // If any element is at edge then no more moving left
         const edge = current.some(index => (currentPosition + index) % width === 9)
-        const collision = current.some(index => squares[currentPosition + index + 1].classList.contains('taken'));
+        const collision = current.some(index => squares[currentPosition + index + 1]?.classList.contains('taken'));
 
         if (!edge && !collision){
             currentPosition += 1;
@@ -228,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         show();
     }
 
+    // Soft drop
     let softDrop;
 
     // Resetting drop settings
@@ -237,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDropSpeed();
     }
 
+    // Rotate clockwise
     function rotateClockwise(){
         remove();
 
@@ -252,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
         show();
     }
 
+    // Rotate counter clockwise
     function rotateCounterClockwise(){
         remove();
 
@@ -269,14 +297,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener("keydown", (e) => {
 
-
-        // Only allow stuff to work during unpause time
-
+        // Bind escape key to pause
         if (e.key.toLowerCase() === "escape") pauseGame();
 
+        // Only allow stuff to work during unpause time
         if (!paused)
         {
-            switch (e.key.toLowerCase()){
+            switch (e.key.toLowerCase())
+            {
 
                 // Moving left/right
                 case ("a"):
@@ -299,10 +327,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     break;
 
+                // Rotating
                 case ("arrowup"):
                     rotateClockwise();
                     break;
-
                 case ("arrowdown"):
                     rotateCounterClockwise();
                     break;
@@ -312,8 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // Soft drop key was released
     document.addEventListener("keyup", (e) => {
-
 
         if (e.key.toLowerCase() === "s" && !paused){
             unSoftDrop();
@@ -321,21 +349,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-
     // User pauses game
     pauseBtn.addEventListener('click', ()=>{
         pauseGame();
     });
 
+    // Pause game
     function pauseGame(){
-        // Reset soft drop settings
 
+        // Changing pause button text
         pauseBtn.textContent = paused ? "Pause" : "Resume";
 
+        // Reset soft drop settings
         if (softDrop){
             unSoftDrop();
         }
 
+        // If game is paused then unpause
         if (paused)
         {
             grid.style.display = "flex";
@@ -344,6 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
             paused = false;
         }
 
+        // If game is unpaused then pause
         else
         {
             grid.style.display = "none";
@@ -359,13 +390,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearLine(){
 
         let lines = 0;
-        let levelPoints = 0;
+        let linePoints = 0;
+        let softDropPoints = 0;
 
+        // Clear full lines and append to top
         for (let i = 0; i < 200; i += width)
         {
             const row = [i,i+1,i+2,i+3,i+4,i+5,i+6,i+7,i+8,i+9];
 
-            if (row.every(index => squares[index].classList.contains('taken')))
+            if (row.every(index => squares[index]?.classList.contains('taken')))
             {
                 row.forEach(index => {
                     squares[index].style.backgroundColor = "grey";
@@ -381,29 +414,48 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Lines cleared
         lines /= 10;
+
+        // Update line count
         previousLineCnt = lineCnt;
         lineCnt += lines;
 
+        // Scoring system
 
-        // Score algorithm
-
-        // Level dependent score
+        // Line dependent score
         if (lines === 1) 
         {
-            levelPoints = 40;
+            linePoints = 40;
         }
-        else if (lines === 2) {levelPoints = 100}
-        else if (lines === 3) levelPoints = 300;
-        else if (lines > 3) levelPoints = 1200;
+        else if (lines === 2)
+        {
+            linePoints = 100;
+        }
+        else if (lines === 3) 
+        {
+            linePoints = 300;
+        }
+        else if (lines > 3) 
+        {
+            linePoints = 1200;
+        }
 
-        levelPoints *= (level+1)
+        softDropPoints = (linePoints/10);
 
-        let linePoints = 0;
+        // If user soft drops on easy level then -10%
+        if (softDrop && level < MAX_LEVEL/2)
+        {
+            score -= softDropPoints;
+        }
 
-        linePoints = (level * 100)
-        
-        score += levelPoints;
+        // If user soft drops on harder levels then +10% + (level*20)
+        else if (softDrop && level >= MAX_LEVEL/2)
+        {
+            score += softDropPoints + (level*20);
+        }
+
+        score += linePoints;
 
         scoreDisp.textContent = score;
 
@@ -429,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function lose()
     {
-        if (current.some(index => squares[currentPosition + index].classList.contains('taken')))
+        if (current.some(index => squares[currentPosition + index]?.classList.contains('taken')))
         {
             pauseGame();
             clearInterval(timerId);
@@ -443,6 +495,25 @@ document.addEventListener('DOMContentLoaded', () => {
             Array.from(container).forEach((element) => {
                 element.style.display = "none";
             });
+
+            saveScore();
+        }
+    }
+
+    function saveScore()
+    {
+        for (let i = 0; i < highScores.length; i++)
+        {
+            if (score > highScores[i])
+            {
+                highScores.splice(i, 0, score);
+                highScores.pop();
+                highNames.splice(i, 0, name.toUpperCase());
+                highNames.pop();
+                localStorage.setItem('highScores', JSON.stringify(highScores));
+                localStorage.setItem('highNames', JSON.stringify(highNames));
+                break;
+            }
         }
     }
 });

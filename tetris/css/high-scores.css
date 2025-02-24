@@ -1,0 +1,7 @@
+@import url('style.css');
+
+#high-scores span
+{
+    display: flex;
+    font-size: xx-large;
+}
