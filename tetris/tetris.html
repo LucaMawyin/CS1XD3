@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width">
+    <script src="js/app.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="css/game.css">
+    <title>Play Tetris</title>
+</head>
+
+<body>
+
+    <div id="settings">
+        <h3>Score:<span id="score">0</span></h3>
+        <h3>Level:<span id="level">1</span></h3>
+        <button id="pauseBtn">Pause</button>
+    </div>
+
+
+    <div class="grid">
+        <script>
+            for (let i = 0; i < 200; i++){
+                document.write('<div></div>');
+            }
+
+            for (let i = 0; i < 10; i++){
+                document.write('<div class="taken" id="bottom"></div>');
+            }
+        </script>
+
+    </div>
+
+</body>
+
+</html>
