@@ -15,6 +15,10 @@ body {
     text-align: center;
 }
 
+.container{
+    display: flex;
+}
+
 .grid{
     width: 200px;
     height:400px;
@@ -22,6 +26,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
+
+    margin-right: 40px;
 }
 
 .grid div{
@@ -31,14 +37,26 @@ body {
     width: 20px;
 }
 
-#settings{
+.mini-grid{
+    width: 80px;
+    height: 80px;
+    background-color: grey;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.mini-grid div{
+    height: 20px;
+    width: 20px;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+#info{
     color: white;
 }
 
 #bottom {
     border: 0;
-}
-
-.tetromino{
-    background-color: blue;
 }

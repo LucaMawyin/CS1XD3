@@ -11,25 +11,39 @@
 
 <body>
 
-    <div id="settings">
+    <div id="info">
         <h3>Score:<span id="score">0</span></h3>
         <h3>Level:<span id="level">1</span></h3>
+        <h3>Lines Cleared:<span id="lines">0</span></h3>
         <button id="pauseBtn">Pause</button>
     </div>
 
+    <div class="container">
+        <div class="grid">
+            <script>
 
-    <div class="grid">
-        <script>
-            for (let i = 0; i < 200; i++){
-                document.write('<div></div>');
-            }
+                for (let i = 0; i < 200; i++){
+                    document.write('<div></div>');
+                }
 
-            for (let i = 0; i < 10; i++){
-                document.write('<div class="taken" id="bottom"></div>');
-            }
-        </script>
+                for (let i = 0; i < 10; i++){
+                    document.write('<div class="taken" id="bottom"></div>');
+                }
 
+            </script>
+
+        </div>
+
+        <div class="mini-grid" id="next-piece">
+            <script>
+                for (let i = 0; i < 16; i++){
+                    document.write('<div></div>');
+                }
+            </script>
+        </div>
     </div>
+
+
 
 </body>
 

@@ -4,7 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
     const scoreDisp = document.querySelector('#score');
     const levelDisp = document.querySelector('#level');
+    const lineDisp = document.querySelector('#lines');
     let squares = Array.from(document.querySelectorAll('.grid div'));
+    const miniGrid = document.querySelector('.mini-grid');
+    const nextSquares = Array.from(document.querySelectorAll('.mini-grid div'));
     let pauseBtn = document.getElementById('pauseBtn');
     
     // Default values
@@ -72,33 +75,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Array of tetrominoes
     const shapes = [shape_L, shape_J, shape_T, shape_S, shape_Z, shape_I, shape_O];
-    const colours = ["orange", "blue", "purple", "lightgreen", "red", "aqua", "yellow"];
+    const colours = ["#ffb700", "#0000ff", "#a000ff", "#00ff00", "#ff0000", "#00ffee", "#ffe900"];
 
     let currentPosition;
     let currentBlock;
     let currentRotation;
     let current;
+    let nextBlock = Math.floor(Math.random()*shapes.length);
+    let nextRotation = Math.floor(Math.random()*shapes[nextBlock].length);
+    let nextPiece = shapes[nextBlock][nextRotation];
 
     spawn();
+    showNext();
 
 
     // Block generation
     function spawn(){
+
         // Default spawn of shape at center
         currentPosition = 3;
 
-        // Randomizing shape generation
-        currentBlock = Math.floor(Math.random()*shapes.length);
-        currentRotation = Math.floor(Math.random()*shapes[currentBlock].length);
-        current = shapes[currentBlock][currentRotation];
+        // Setting current block to the next block       
+        currentBlock = nextBlock;
+        currentRotation = nextRotation;
 
+        current = nextPiece;
+
+
+        // Setting next block
+        nextBlock = Math.floor(Math.random()*shapes.length);
+        nextRotation = Math.floor(Math.random()*shapes[nextBlock].length);
+
+        nextPiece = shapes[nextBlock][nextRotation];
     }
 
+    // Show block
     function show() {
 
         current.forEach(index => {
             squares[currentPosition + index].classList.add('tetromino');
             squares[currentPosition + index].style.backgroundColor = colours[currentBlock];
+        });
+    }
+
+    // Show next block
+    function showNext() {
+    
+        const nextPieceList = [
+            [8,9,10,6],  // L
+            [8,9,10,4], // J
+            [4,5,6,9],  // T
+            [5,6,8,9],  // S
+            [4,5,9,10],  // Z
+            [4,5,6,7],  // I
+            [5,6,9,10]   // O
+        ];
+    
+        // Clear mini grid
+        nextSquares.forEach(square => {
+            square.classList.remove('tetromino');
+            square.style.backgroundColor = "grey";
+        });
+    
+        // Get mini display block
+        let miniGridPiece = nextPieceList[nextBlock];
+    
+        // Show next piece in next piece display
+        miniGridPiece.forEach(index => {
+            nextSquares[index].classList.add('tetromino');
+            nextSquares[index].style.backgroundColor = colours[nextBlock];
         });
     }
 
@@ -142,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
         current.forEach(index => squares[currentPosition + index].classList.add('taken'));
 
         spawn();
+        showNext();
 
         clearLine();
         show();
@@ -222,6 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         // Only allow stuff to work during unpause time
+
+        if (e.key.toLowerCase() === "escape") pauseGame();
+
         if (!paused)
         {
             switch (e.key.toLowerCase()){
@@ -272,7 +321,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // User pauses game
     pauseBtn.addEventListener('click', ()=>{
+        pauseGame();
+    });
 
+    function pauseGame(){
         // Reset soft drop settings
         if (softDrop){
             unSoftDrop();
@@ -281,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (paused)
         {
             grid.style.visibility = "visible";
+            miniGrid.style.visibility = "visible";
             timerId = setInterval(down, dropSpeed);
             paused = false;
         }
@@ -288,11 +341,12 @@ document.addEventListener('DOMContentLoaded', () => {
         else
         {
             grid.style.visibility = "hidden";
+            miniGrid.style.visibility = "hidden";
             clearInterval(timerId);
             timerId = null;
             paused = true;
         }
-    });
+    }
 
 
     // User clears a line
@@ -343,6 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         levelDisp.textContent = level;
+        lineDisp.textContent = lineCnt;
     }
 
     function updateDropSpeed() {
