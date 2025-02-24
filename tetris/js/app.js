@@ -1,6 +1,4 @@
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // HTML elements
@@ -361,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearLine(){
 
         let lines = 0;
-        let points = 0;
+        let levelPoints = 0;
 
         for (let i = 0; i < 200; i += width)
         {
@@ -389,19 +387,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         // Score algorithm
-        if (lines === 1) points = 40;
-        else if (lines === 2) points = 100;
-        else if (lines === 3) points = 300;
-        else if (lines > 3) points = 1200;
-    
-        score += points * (level + 1);
+
+        // Level dependent score
+        if (lines === 1) 
+        {
+            levelPoints = 40;
+        }
+        else if (lines === 2) {levelPoints = 100}
+        else if (lines === 3) levelPoints = 300;
+        else if (lines > 3) levelPoints = 1200;
+
+        levelPoints *= (level+1)
+
+        let linePoints = 0;
+
+        linePoints = (level * 100)
+        
+        score += levelPoints;
 
         scoreDisp.textContent = score;
 
-        // Check if line count passed a multiple of 10
+        // Level up
         if (Math.floor(previousLineCnt / 10) < Math.floor(lineCnt / 10)) {
             level++;
-            updateDropSpeed();
+            if (level < MAX_LEVEL)
+            {
+                updateDropSpeed();
+            }
         }
 
         levelDisp.textContent = level;
@@ -410,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateDropSpeed() {
 
-        dropSpeed = Math.max(1000 - (level * 100), 100);
+        dropSpeed = 1000 - ((level-1) * 100);
         clearInterval(timerId);
         timerId = setInterval(down, dropSpeed);
     }

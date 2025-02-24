@@ -1,8 +1,14 @@
 @import url('https://fonts.cdnfonts.com/css/tetris');
 
+@font-face {
+    font-family: 'Pixel';
+    src: url('tetris.ttf');
+}
+
 :root{
     background-image: url("../images/tetris-background.jpg");
     user-select: none;
+    font-family: 'Pixel';
 }
 
 html, body{
@@ -26,8 +32,8 @@ body {
 }
 
 .grid{
-    width: 400px;
-    height:800px;
+    width: 40vh;
+    height: 80vh;
     background-color: grey;
     display: flex;
     flex-wrap: wrap;
@@ -37,13 +43,13 @@ body {
 .grid div{
     box-sizing: border-box;
     border: 1px solid black;
-    height: 40px;
-    width: 40px;
+    height: 5%;
+    width: 10%;
 }
 
 .mini-grid{
-    width: 80px;
-    height: 80px;
+    width: 10vh;
+    height: 10vh;
     background-color: grey;
     display: flex;
     flex-wrap: wrap;
@@ -51,8 +57,8 @@ body {
 }
 
 .mini-grid div{
-    height: 20px;
-    width: 20px;
+    height: 25%;
+    width: 25%;
     box-sizing: border-box;
     border: 1px solid black;
 }
@@ -67,7 +73,6 @@ body {
 }
 
 .game-over{
-    font-family: 'Tetris';
     width: 30%;
     height: 60%;
     background-color: white;
@@ -105,7 +110,6 @@ body {
 }
 
 .game-paused{
-    font-family: 'Tetris';
     width: 30%;
     height: 60%;
     background-color: white;
