@@ -310,7 +310,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 case ("a"):
                     moveLeft();
                     break;
+                case "arrowleft":
+                    moveLeft();
+                    break;
                 case ("d"):
+                    moveRight();
+                    break;
+                case "arrowright":
                     moveRight();
                     break;
 
