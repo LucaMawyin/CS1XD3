@@ -7,18 +7,33 @@
     <script src="js/app.js" charset="utf-8"></script>
     <link rel="stylesheet" href="css/game.css">
     <title>Play Tetris</title>
+    <script>
+        if (!localStorage.getItem('visitedIndex'))
+        {
+            window.location.href = 'index.html';
+            localStorage.setItem('visitedIndex', true);
+        }
+        else
+        {
+            localStorage.removeItem('visitedIndex');
+        }
+    </script>
+
 </head>
 
 <body>
 
-    <div id="info">
-        <h3>Score:<span id="score">0</span></h3>
-        <h3>Level:<span id="level">1</span></h3>
-        <h3>Lines Cleared:<span id="lines">0</span></h3>
-        <button id="pauseBtn">Pause</button>
-    </div>
+
 
     <div class="container">
+
+        <div id="info">
+            <h3>Score: <span id="score">0</span></h3>
+            <h3>Level: <span id="level">1</span></h3>
+            <h3>Lines Cleared: <span id="lines">0</span></h3>
+            <button id="pauseBtn">Pause</button>
+        </div>
+
         <div class="grid">
             <script>
 
@@ -31,7 +46,6 @@
                 }
 
             </script>
-
         </div>
 
         <div class="mini-grid" id="next-piece">
@@ -41,6 +55,19 @@
                 }
             </script>
         </div>
+    </div>
+
+    <div class="game-paused">
+        <h1>Paused</h1>
+        <button id="pauseBtn">Pause</button>
+    </div>
+
+    <div class="game-over">
+        <h1>Game Over</h1>
+        <h3>Your Score: <span id="score">0</span></h3>
+        <h3>Lines Cleared: <span id="lines">0</span></h3>
+        <h3>Level Reached: <span id="level">1</span></h3>
+        <a href="index.html">&lt Back to Menu</a>
     </div>
 
 

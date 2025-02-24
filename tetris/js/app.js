@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // HTML elements
@@ -9,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const miniGrid = document.querySelector('.mini-grid');
     const nextSquares = Array.from(document.querySelectorAll('.mini-grid div'));
     let pauseBtn = document.getElementById('pauseBtn');
+    const gameOver = document.getElementsByClassName('game-over')[0];
+    const container = document.querySelectorAll('.container');
     
     // Default values
     const MAX_LEVEL = 10;
@@ -326,22 +331,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function pauseGame(){
         // Reset soft drop settings
+
+        pauseBtn.textContent = paused ? "Pause" : "Resume";
+
         if (softDrop){
             unSoftDrop();
         }
 
         if (paused)
         {
-            grid.style.visibility = "visible";
-            miniGrid.style.visibility = "visible";
+            grid.style.display = "flex";
+            miniGrid.style.display = "flex";
             timerId = setInterval(down, dropSpeed);
             paused = false;
         }
 
         else
         {
-            grid.style.visibility = "hidden";
-            miniGrid.style.visibility = "hidden";
+            grid.style.display = "none";
+            miniGrid.style.display = "none";
             clearInterval(timerId);
             timerId = null;
             paused = true;
@@ -411,8 +419,18 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         if (current.some(index => squares[currentPosition + index].classList.contains('taken')))
         {
+            pauseGame();
             clearInterval(timerId);
-            alert("YOU LOSE");
+
+            document.querySelector('.game-over #score').textContent = score;
+            document.querySelector('.game-over #lines').textContent = lineCnt;
+            document.querySelector('.game-over #level').textContent = level;
+
+            gameOver.style.display = "flex";
+            
+            Array.from(container).forEach((element) => {
+                element.style.display = "none";
+            });
         }
     }
 });
