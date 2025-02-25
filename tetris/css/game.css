@@ -34,7 +34,6 @@ body {
 .grid{
     width: 40vh;
     height: 80vh;
-    background-color: black;
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
@@ -51,7 +50,6 @@ body {
 .mini-grid{
     width: 10vh;
     height: 10vh;
-    background-color: black;
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
@@ -62,7 +60,8 @@ body {
     width: 25%;
     box-sizing: border-box;
     border: 1px solid grey;
-    border-radius: 2.5px;
+    background-color: black;
+    border-radius: 3px;
 }
 
 #info{

@@ -36,14 +36,16 @@ html,body{
 }
 
 .content{
-    width: 30%;
-    height: 60%;
+    width: max-content;
+    max-width: 25%;
+    height: max-content;
 
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 3%;
 }
 
 .content a{
@@ -54,6 +56,7 @@ html,body{
     font-size: 2vw;
     text-align: center;
     transition: ease 0.2s;
+    cursor: pointer;
 }
 
 .content a:hover{
@@ -73,6 +76,27 @@ html,body{
     font-size: 1.5vw;
     text-transform: uppercase;
     margin-bottom: 5%;
+}
+
+#how-to-play .content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.nextBtn{
+    width: fit-content;
+}
+
+.content img{
+    width: 75%;
+    height: auto;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
 }
 
 @media (max-width: 768px){

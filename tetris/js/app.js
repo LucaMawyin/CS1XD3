@@ -46,7 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Keybinds
     let binds = JSON.parse(localStorage.getItem("binds"));
     let backgroundColour = localStorage.getItem("colour");
-    grid.style.backgroundColor = backgroundColour;
+
+    // Setting each individual square to background colour
+    // Otherwise colour seeps through corners
+    squares.forEach(square => {
+        if (square.className !== "taken") square.style.backgroundColor = backgroundColour;
+    });
 
     // Creating each tetromino
     // https://docs.google.com/spreadsheets/d/12WR_rgHd6ENNGiIF0RBDOAiI4D1YlewqZecEhn96u74/edit?usp=sharing
@@ -177,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Remove block
     function remove() {
         current.forEach(index => {
-            squares[currentPosition + index].style.backgroundColor = "";
+            squares[currentPosition + index].style.backgroundColor = backgroundColour;
             squares[currentPosition + index].classList.remove('tetromino')
         })
     }
@@ -490,13 +495,28 @@ document.addEventListener('DOMContentLoaded', () => {
         lineDisp.textContent = lineCnt;
     }
 
+    // Update drop speed
     function updateDropSpeed() {
 
-        dropSpeed = 1000 - ((level-1) * 100);
-        clearInterval(timerId);
+        // Level is within max level range then just -100ms every time
+        if (level <= MAX_LEVEL)
+        {
+            dropSpeed = 1000 - ((level-1) * 100);
+            clearInterval(timerId);            
+        }
+
+        // Level is above max level range then -5ms every 3 levels
+        else if (level > MAX_LEVEL && (level-MAX_LEVEL)%3===0)
+        {
+            dropSpeed = 100 - (((level-MAX_LEVEL)/3)*5);
+            clearInterval(timerId);
+        }
+
+        //update timer
         timerId = setInterval(down, dropSpeed);
     }
 
+    // Player loses
     function lose()
     {
         if (current.some(index => squares[currentPosition + index]?.classList.contains('taken')))
@@ -518,6 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Check is user beat any records
     function saveScore()
     {
         for (let i = 0; i < highScores.length; i++)
