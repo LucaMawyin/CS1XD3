@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded',()=>{
+    
     // Default keybinds
     const defaultBind = {
         left: "a",
