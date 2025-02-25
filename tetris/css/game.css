@@ -144,3 +144,16 @@ body {
     justify-content: center;
     gap: 40%;
 }
+
+@media (max-width: 570px)
+{
+    .grid{
+        width: 20vh;
+        height: 40vh;
+    }
+
+    .mini-grid{
+        width: 20vh;
+        height: 40vh;
+    }
+}

@@ -1,14 +1,16 @@
 
+// Default keybinds
+const defaultBind = {
+    left: "a",
+    right: "d",
+    down: "s",
+    clockwise: "arrowup",
+    counterClockwise: "arrowdown",
+};
+
+let bkgClr = document.getElementById("backgroundColour");
+
 document.addEventListener('DOMContentLoaded',()=>{
-    
-    // Default keybinds
-    const defaultBind = {
-        left: "a",
-        right: "d",
-        down: "s",
-        clockwise: "arrowup",
-        counterClockwise: "arrowdown",
-    };
 
     // Loading up keybinds
     let binds = JSON.parse(localStorage.getItem("binds"));
@@ -22,7 +24,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     let current = null;
 
     // Loading up background colour
-    let bkgClr = document.getElementById("backgroundColour");
     bkgClr.value = localStorage.getItem("colour");
 
     bkgClr.addEventListener("input", function() {

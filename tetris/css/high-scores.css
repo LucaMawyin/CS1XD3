@@ -13,7 +13,7 @@
 .settings
 {
     height: fit-content;
-    width: max-content;
+    width: fit-content;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -52,4 +52,13 @@
 
 #back{
     margin-top: 10%;
+}
+
+@media (max-width: 768px){
+    .settings{
+        align-items: center;
+        width: 75%;
+        height: fit-content;
+        font-size: 125%;
+    }
 }
