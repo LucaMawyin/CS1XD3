@@ -547,6 +547,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 element.style.display = "none";
             });
 
+            document.body.style.justifyContent = "center";
+
             saveScore();
         }
     }
