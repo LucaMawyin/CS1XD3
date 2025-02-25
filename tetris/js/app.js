@@ -1,6 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    
     // Forcing user to go through the home screen
     if (!localStorage.getItem('visitedIndex') || localStorage.getItem('player') === null)
     {
@@ -382,11 +383,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     });
 
+
     // Pause game
     function pauseGame(){
 
         // Changing pause button text
         pauseBtn.textContent = paused ? "Pause" : "Resume";
+
+        const game = document.querySelector('#game');
+        
 
         // Reset soft drop settings
         if (softDrop){
@@ -396,9 +401,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // If game is paused then unpause
         if (paused)
         {
-            grid.style.display = "flex";
-            miniGrid.style.display = "flex";
+            game.style.display = "flex";
             document.querySelector('#info h1').style.display = "none";
+            document.querySelector('.container').style.height = "fit-content";
             timerId = setInterval(down, dropSpeed);
             paused = false;
         }
@@ -406,9 +411,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // If game is unpaused then pause
         else
         {
-            grid.style.display = "none";
-            miniGrid.style.display = "none";
+
+            game.style.display = "none";
             document.querySelector('#info h1').style.display = "inline";
+            document.querySelector('.container').style.height = "75%";
             clearInterval(timerId);
             timerId = null;
             paused = true;
