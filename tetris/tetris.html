@@ -34,27 +34,30 @@
             </div>
         </dialog>
 
-        <div class="grid">
-            <script>
-
-                for (let i = 0; i < 200; i++){
-                    document.write('<div></div>');
-                }
-
-                for (let i = 0; i < 10; i++){
-                    document.write('<div class="taken" id="bottom"></div>');
-                }
-
-            </script>
+        <div id="game">
+            <div class="grid">
+                <script>
+    
+                    for (let i = 0; i < 200; i++){
+                        document.write('<div></div>');
+                    }
+    
+                    for (let i = 0; i < 10; i++){
+                        document.write('<div class="taken" id="bottom"></div>');
+                    }
+    
+                </script>
+            </div>
+    
+            <div class="mini-grid" id="next-piece">
+                <script>
+                    for (let i = 0; i < 16; i++){
+                        document.write('<div></div>');
+                    }
+                </script>
+            </div>            
         </div>
 
-        <div class="mini-grid" id="next-piece">
-            <script>
-                for (let i = 0; i < 16; i++){
-                    document.write('<div></div>');
-                }
-            </script>
-        </div>
     </div>
 
     <div class="game-over">

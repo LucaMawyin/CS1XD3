@@ -474,13 +474,13 @@ document.addEventListener('DOMContentLoaded', () => {
         softDropPoints = (linePoints/10);
 
         // If user soft drops on easy level then -10%
-        if (softDrop && level < MAX_LEVEL/2)
+        if (softDrop && level < MAX_LEVEL/2 && lines > 0)
         {
             score -= softDropPoints;
         }
 
         // If user soft drops on harder levels then +10% + (level*20)
-        else if (softDrop && level >= MAX_LEVEL/2)
+        else if (softDrop && level >= MAX_LEVEL/2 && lines > 0)
         {
             score += softDropPoints + (level*20);
         }
@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Level is above max level range then -5ms every 3 levels
         else if (level > MAX_LEVEL && (level-MAX_LEVEL)%3===0)
         {
-            dropSpeed = 100 - (((level-MAX_LEVEL)/3)*5);
+            dropSpeed = Math.max(100 - (((level-MAX_LEVEL)/3)*5), 50);
             clearInterval(timerId);
         }
 

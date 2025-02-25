@@ -65,8 +65,8 @@ body {
 }
 
 #info{
+    padding-top: 20vh;
     color: white;
-    flex-direction: column;
 }
 
 #bottom {
@@ -74,18 +74,19 @@ body {
 }
 
 .game-over{
-    width: 30%;
-    height: 60%;
+    width: 25%;
+    height: max-content;
+    padding: 3%;
     background-color: white;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 2vw;
+    font-size: 125%;
 }
 
 .game-over h1{
-    font-size: 4vw;
+    font-size: 150%;
     color: red;
     margin-bottom: 3%;
     margin-top: 0;
@@ -145,8 +146,32 @@ body {
     gap: 40%;
 }
 
+#game{
+    display: flex;
+    gap: 2%;
+    padding-right: 10vw;
+}
+
 @media (max-width: 570px)
 {
+
+    body{
+        justify-content: stretch;
+    }
+
+    .container{
+        flex-direction: column;
+    }
+
+    #info{
+        padding-top: 5%;
+    }
+
+    #game{
+        justify-content: center;
+        padding-left: 10%;
+    }
+
     .grid{
         width: 20vh;
         height: 40vh;
@@ -155,5 +180,9 @@ body {
     .mini-grid{
         width: 5vh;
         height: 5vh;
+    }
+
+    .game-over{
+        width: 75%;
     }
 }
