@@ -199,6 +199,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!checkBottom()){
             remove();
             currentPosition += width;
+            if (softDrop) 
+            {
+                score++;
+                scoreDisp.textContent = score;
+            }
             show();
         }
 

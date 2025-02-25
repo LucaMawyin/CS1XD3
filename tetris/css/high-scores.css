@@ -19,6 +19,7 @@
     flex-direction: column;
     padding: 1%;
     font-size: 2vw;
+    transition: ease-in 0.2s;
 }
 
 .settings button{
