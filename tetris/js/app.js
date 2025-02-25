@@ -368,10 +368,17 @@ document.addEventListener('DOMContentLoaded', () => {
     quitBtn.addEventListener('click', ()=>{
 
         if (!paused) pauseGame();
-        setTimeout(() => {
-            if (confirm("Are you sure you want to quit?")) window.location.href = 'index.html';
-        }
-        , 0);
+
+        const confirmBox = document.querySelector(".quit-popup");
+        confirmBox.showModal();
+
+        document.querySelector('.quit-popup #yes').addEventListener('click', () => {
+            window.location.href = "index.html";
+        });
+
+        document.querySelector('.quit-popup #no').addEventListener('click', () => {
+            confirmBox.close();
+        });
     
     });
 

@@ -99,6 +99,10 @@ html,body{
     justify-content: space-between;
 }
 
+#alert-box{
+    text-align: center;
+}
+
 @media (max-width: 768px){
 
     .content{

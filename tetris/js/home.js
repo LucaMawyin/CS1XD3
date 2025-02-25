@@ -46,10 +46,11 @@ function lettersOnly(input) {
 // Start game
 function play(event){
     const initials = document.getElementById("player-init");
+    const alertMsg = document.getElementById("alert-box");
 
     // Only allow user to play game if they enter initials
     if (initials.value === ""){
-        alert("Please Enter Initials");
+        alertMsg.showModal();
         event.preventDefault();
     }
     else{
@@ -57,6 +58,10 @@ function play(event){
         initials.value = "";
         window.location.href = "tetris.html"
     }
+
+    document.querySelector('#alert-box button').addEventListener('click', () =>{
+        alertMsg.close();
+    });
 }
 
 // Set default leaderboard

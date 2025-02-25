@@ -130,3 +130,17 @@ body {
 #buttons button{
     margin-bottom: 10%;
 }
+
+.quit-popup{
+    text-align: center;
+}
+
+.quit-popup button{
+    flex: 1;
+}
+
+.quit-popup div{
+    display: flex;
+    justify-content: center;
+    gap: 40%;
+}
