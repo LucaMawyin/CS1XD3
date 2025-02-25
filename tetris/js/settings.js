@@ -12,6 +12,16 @@ let bkgClr = document.getElementById("backgroundColour");
 
 document.addEventListener('DOMContentLoaded',()=>{
 
+    // Forcing user to go through the home screen
+    if (!localStorage.getItem('visitedIndex'))
+    {
+        window.location.href = 'index.html';
+        localStorage.setItem('visitedIndex', true);
+    }
+    else{
+        localStorage.removeItem('visitedIndex');
+    }
+
     // Loading up keybinds
     let binds = JSON.parse(localStorage.getItem("binds"));
 

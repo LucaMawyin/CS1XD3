@@ -233,6 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
         spawn();
         showNext();
 
+        updateDropSpeed();
+
         clearLine();
         show();
         lose();
@@ -337,9 +339,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         softDrop = true;
 
-                        dropSpeed /=10;
                         clearInterval(timerId);
-                        timerId = setInterval(down, dropSpeed);                    
+                        timerId = setInterval(down, dropSpeed/10);                    
                     }
                     break;
 
@@ -350,6 +351,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 case (binds.counterClockwise):
                     rotateCounterClockwise();
                     break;
+
+                case "w":
+                    clearInterval(timerId);
+                    timerId = setInterval(down, 0);
             }            
         }
     });
@@ -505,7 +510,13 @@ document.addEventListener('DOMContentLoaded', () => {
             level++;
             if (level < MAX_LEVEL)
             {
+
+                let temp = softDrop;
+
+                softDrop = false;
                 updateDropSpeed();
+                softDrop = temp;
+            
             }
         }
 
@@ -516,22 +527,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update drop speed
     function updateDropSpeed() {
 
-        // Level is within max level range then just -100ms every time
-        if (level <= MAX_LEVEL)
+        if (!softDrop)
         {
-            dropSpeed = 1000 - ((level-1) * 100);
-            clearInterval(timerId);            
-        }
+            // Level is within max level range then just -100ms every time
+            if (level <= MAX_LEVEL)
+            {
+                dropSpeed = 1000 - ((level-1) * 100);
+                clearInterval(timerId);            
+            }
 
-        // Level is above max level range then -5ms every 3 levels
-        else if (level > MAX_LEVEL && (level-MAX_LEVEL)%3===0)
-        {
-            dropSpeed = Math.max(100 - (((level-MAX_LEVEL)/3)*5), 50);
-            clearInterval(timerId);
-        }
+            // Level is above max level range then -5ms every 3 levels
+            else if (level > MAX_LEVEL && (level-MAX_LEVEL)%3===0)
+            {
+                dropSpeed = Math.max(100 - (((level-MAX_LEVEL)/3)*5), 50);
+                clearInterval(timerId);
+            }
 
-        //update timer
-        timerId = setInterval(down, dropSpeed);
+            //update timer
+            timerId = setInterval(down, dropSpeed);            
+        }
     }
 
     // Player loses

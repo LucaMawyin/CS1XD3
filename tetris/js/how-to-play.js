@@ -1,6 +1,16 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Forcing user to go through the home screen
+    if (!localStorage.getItem('visitedIndex'))
+    {
+        window.location.href = 'index.html';
+        localStorage.setItem('visitedIndex', true);
+    }
+    else{
+        localStorage.removeItem('visitedIndex');
+    }
+
     // Getting values
     let currentStep = 0;
     const steps = document.querySelectorAll('.content');
