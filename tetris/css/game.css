@@ -34,7 +34,7 @@ body {
 .grid{
     width: 40vh;
     height: 80vh;
-    background-color: grey;
+    background-color: black;
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
@@ -42,7 +42,8 @@ body {
 
 .grid div{
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid gray;
+    border-radius: 5px;
     height: 5%;
     width: 10%;
 }
@@ -50,7 +51,7 @@ body {
 .mini-grid{
     width: 10vh;
     height: 10vh;
-    background-color: grey;
+    background-color: black;
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
@@ -60,7 +61,8 @@ body {
     height: 25%;
     width: 25%;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid grey;
+    border-radius: 2.5px;
 }
 
 #info{
@@ -118,4 +120,14 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 2vw;
+}
+
+#buttons{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#buttons button{
+    margin-bottom: 10%;
 }

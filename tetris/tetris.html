@@ -16,10 +16,14 @@
     <div class="container">
 
         <div id="info">
+            <h1 style="display: none;">Paused</h1>
             <h3>Score: <span id="score">0</span></h3>
             <h3>Level: <span id="level">1</span></h3>
             <h3>Lines Cleared: <span id="lines">0</span></h3>
-            <button id="pauseBtn">Pause</button>
+            <div id="buttons">
+                <button id="pauseBtn">Pause</button>
+                <button id="quitBtn">Quit</button>
+            </div>
         </div>
 
         <div class="grid">
@@ -43,11 +47,6 @@
                 }
             </script>
         </div>
-    </div>
-
-    <div class="game-paused">
-        <h1>Paused</h1>
-        <button id="pauseBtn">Pause</button>
     </div>
 
     <div class="game-over">

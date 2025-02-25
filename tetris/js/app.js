@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let pauseBtn = document.getElementById('pauseBtn');
     const gameOver = document.getElementsByClassName('game-over')[0];
     const container = document.querySelectorAll('.container');
+    let quitBtn = document.getElementById('quitBtn');
     
     // Default values
     const MAX_LEVEL = 10;
@@ -42,42 +43,46 @@ document.addEventListener('DOMContentLoaded', () => {
     let timerId;
     let paused = false;
 
+    // Keybinds
+    let binds = JSON.parse(localStorage.getItem("binds"));
+    let backgroundColour = localStorage.getItem("colour");
+    grid.style.backgroundColor = backgroundColour;
 
     // Creating each tetromino
     // https://docs.google.com/spreadsheets/d/12WR_rgHd6ENNGiIF0RBDOAiI4D1YlewqZecEhn96u74/edit?usp=sharing
     const shape_J = [
+        [0,width, width+1, width+2],
+        [1,2,width+1,(2*width)+1],
         [width, width+1, width+2, (2*width)+2],
-        [1, width+1, (2*width)+1, 2*width],
-        [width, 2*width, (2*width)+1, (2*width)+2],
-        [1, 2, width+1, (2*width)+1]
+        [1,width+1,(2*width)+1,(2*width)]
     ]
 
     const shape_L = [
-        [width, width+1, width+2, 2*width],
-        [0, 1, width+1, (2*width)+1],
-        [2*width, (2*width)+1, (2*width)+2, width+2],
-        [1, width+1, (2*width)+1, (2*width)+2]
+        [width,width+1,width+2,2],
+        [1,width+1,(2*width)+1,(2*width)+2],
+        [width, width+1, width+2, (2*width)],
+        [0,1,width+1,(2*width)+1]
     ]
 
     const shape_S = [
-        [width+1, width+2, (2*width), (2*width)+1],
-        [0, width, width+1, (2*width)+1],
-        [width+1, width+2, (2*width), (2*width)+1],
-        [0, width, width+1, (2*width)+1]        
-    ]
-
-    const shape_T = [
-        [width, width+1, width+2, (2*width)+1],
-        [1, width+1, (2*width)+1, width],
-        [width+1, (2*width), (2*width)+1, (2*width)+2],
-        [1, width+1, (2*width)+1, width+2],
+        [width+1,width+2,2*width,2*width+1],
+        [0,width,width+1,(2*width)+1],
+        [1,2,width,width+1],
+        [1,width+1,width+2,(2*width)+2]    
     ]
 
     const shape_Z = [
-        [width, width+1, (2*width)+1, (2*width)+2],
-        [2, width+1, width+2, (2*width)+1],
-        [width, width+1, (2*width)+1, (2*width)+2],
-        [2, width+1, width+2, (2*width)+1]
+        [width,width+1,2*width+1,2*width+2],
+        [1,width,width+1,(2*width)],
+        [0,1,width+1,width+2],
+        [2,width+1,width+2,(2*width)+1]
+    ]    
+
+    const shape_T = [
+        [1,width,width+1,width+2],
+        [1,width+1,width+2,(2*width)+1],
+        [width,width+1,width+2,(2*width)+1],
+        [1,width,width+1,(2*width)+1]
     ]
 
     const shape_O = [
@@ -90,8 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const shape_I = [
         [width, width+1, width+2, width+3],
         [2, width+2, (2*width)+2, (3*width)+2],
-        [width, width+1, width+2, width+3],
-        [2, width+2, (2*width)+2, (3*width)+2]
+        [width*2, width*2+1, width*2+2, width*2+3],
+        [1, width+1, (2*width)+1, (3*width)+1]
     ]
 
     // Array of tetrominoes
@@ -156,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear mini grid
         nextSquares.forEach(square => {
             square.classList.remove('tetromino');
-            square.style.backgroundColor = "grey";
+            square.style.backgroundColor = backgroundColour;
         });
     
         // Get mini display block
@@ -307,21 +312,15 @@ document.addEventListener('DOMContentLoaded', () => {
             {
 
                 // Moving left/right
-                case ("a"):
+                case (binds.left):
                     moveLeft();
                     break;
-                case "arrowleft":
-                    moveLeft();
-                    break;
-                case ("d"):
-                    moveRight();
-                    break;
-                case "arrowright":
+                case (binds.right):
                     moveRight();
                     break;
 
                 // Soft dropping
-                case("s"):
+                case(binds.down):
 
                     if (!softDrop){
 
@@ -334,10 +333,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
 
                 // Rotating
-                case ("arrowup"):
+                case (binds.clockwise):
                     rotateClockwise();
                     break;
-                case ("arrowdown"):
+                case (binds.counterClockwise):
                     rotateCounterClockwise();
                     break;
             }            
@@ -349,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Soft drop key was released
     document.addEventListener("keyup", (e) => {
 
-        if (e.key.toLowerCase() === "s" && !paused){
+        if (e.key.toLowerCase() === binds.down && !paused){
             unSoftDrop();
         }
     });
@@ -358,6 +357,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // User pauses game
     pauseBtn.addEventListener('click', ()=>{
         pauseGame();
+    });
+
+    // User quits game
+    quitBtn.addEventListener('click', ()=>{
+        pauseGame();
+        setTimeout(() => {
+            if (confirm("Are you sure you want to quit?")) window.location.href = 'index.html';
+            else pauseGame();
+        }
+        , 0);
+    
     });
 
     // Pause game
@@ -376,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             grid.style.display = "flex";
             miniGrid.style.display = "flex";
+            document.querySelector('#info h1').style.display = "none";
             timerId = setInterval(down, dropSpeed);
             paused = false;
         }
@@ -385,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             grid.style.display = "none";
             miniGrid.style.display = "none";
+            document.querySelector('#info h1').style.display = "inline";
             clearInterval(timerId);
             timerId = null;
             paused = true;
@@ -407,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (row.every(index => squares[index]?.classList.contains('taken')))
             {
                 row.forEach(index => {
-                    squares[index].style.backgroundColor = "grey";
+                    squares[index].style.backgroundColor = backgroundColour;
                     squares[index].classList.remove('taken');
                     squares[index].classList.remove('tetromino');
 

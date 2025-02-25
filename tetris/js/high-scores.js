@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let i = 0; i < highScores.length; i++)
     {
-        console.log(scoreList[i]);
         scoreList[i].textContent = String((i+1)) + ". "+ highNames[i] +": "+ highScores[i];
     }
 });

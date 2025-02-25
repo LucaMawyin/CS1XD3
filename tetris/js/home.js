@@ -1,10 +1,26 @@
 
 // Forcing user to home screen
 document.addEventListener('DOMContentLoaded', () => {
+
+    const defaultBind = {
+        left: "a",
+        right: "d",
+        down: "s",
+        clockwise: "arrowup",
+        counterClockwise: "arrowdown",
+    };
+
+    // Sets default settings if none exist
+    if (!localStorage.getItem('binds')) localStorage.setItem("binds", JSON.stringify(defaultBind));
+    if (!localStorage.getItem('colour')) localStorage.setItem("colour", "#000000");
+
+    // Greenlighting user to play game
     localStorage.setItem('visitedIndex',true);
 
+    // Setting default leaderboard
     setLeaderboard();
 
+    // Allow user to press enter to start
     document.addEventListener('keydown', (event) => {
         const key = event.key;
         if (key === 'Enter'){
@@ -27,10 +43,11 @@ function lettersOnly(input) {
     input.value = input.value.replace(/[^a-zA-Z]/g, '');
 }
 
-
+// Start game
 function play(event){
     const initials = document.getElementById("player-init");
 
+    // Only allow user to play game if they enter initials
     if (initials.value === ""){
         alert("Please Enter Initials");
         event.preventDefault();
@@ -42,11 +59,13 @@ function play(event){
     }
 }
 
+// Set default leaderboard
 function setLeaderboard(){
+
     // Set default high scores and names on load if none exist
     if (!localStorage.getItem('highScores') || !localStorage.getItem('highNames')){
         let defaultScores = [1000,900,800,700,600,500,400,300,200,100];
-        let defaultNames = ["AAA","BBB","CCC","DDD","EEE","FFF","GGG","HHH","III","JJJ"];
+        let defaultNames = ["","","","","","","","","",""];
         localStorage.setItem('highScores', JSON.stringify(defaultScores));
         localStorage.setItem('highNames', JSON.stringify(defaultNames));
     }
