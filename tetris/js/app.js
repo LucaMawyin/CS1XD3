@@ -366,10 +366,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // User quits game
     quitBtn.addEventListener('click', ()=>{
-        pauseGame();
+
+        if (!paused) pauseGame();
         setTimeout(() => {
             if (confirm("Are you sure you want to quit?")) window.location.href = 'index.html';
-            else pauseGame();
         }
         , 0);
     
