@@ -347,13 +347,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const nextRotation = (currentRotation + 1) % 4;
 
-        // If rotation is not valid then no rotation
-        if (willCollide(nextRotation))
-        {
-            show();
-            return;
-        }
-
         currentRotation = nextRotation;
         current = shapes[currentBlock][currentRotation];
 
@@ -366,30 +359,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const nextRotation = (currentRotation + 3) % 4;
 
-        // If rotation is not valid then no rotation
-        if (willCollide(nextRotation))
-        {
-            show();
-            return;
-        }
-
         currentRotation = nextRotation;
         current = shapes[currentBlock][currentRotation];
 
         show();
     }
 
-    // Check if rotation of piece is valid
-    function willCollide(rotation) {
-
-        const rotatedBlock = shapes[currentBlock][rotation];
-    
-        // Return true if any block extends
-        return rotatedBlock.some(index => {
-            return (squares[currentPosition + index]?.classList.contains('taken') || // Rotation interferes with already placed block
-                    (currentPosition + index) % width === 0 && (currentPosition + index - 1) % width === 9); // Rotation overflows into next/ previous row
-        });
-    }
 
     function keyInput(e)
     {
