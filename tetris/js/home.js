@@ -2,10 +2,12 @@
 // Forcing user to home screen
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Default keybinds
     const defaultBind = {
         left: "a",
         right: "d",
         down: "s",
+        hard: "w",
         clockwise: "arrowup",
         counterClockwise: "arrowdown",
     };

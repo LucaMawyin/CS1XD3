@@ -4,6 +4,7 @@ const defaultBind = {
     left: "a",
     right: "d",
     down: "s",
+    hard: "w",
     clockwise: "arrowup",
     counterClockwise: "arrowdown",
 };
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById("left").value = binds.left;
     document.getElementById("right").value = binds.right;
     document.getElementById("down").value = binds.down;
+    document.getElementById("hard").value = binds.hard;
     document.getElementById("clockwise").value = binds.clockwise;
     document.getElementById("counterClockwise").value = binds.counterClockwise;
 
@@ -96,6 +98,7 @@ function resetSettings(){
     document.getElementById("left").value = defaultBind.left;
     document.getElementById("right").value = defaultBind.right;
     document.getElementById("down").value = defaultBind.down;
+    document.getElementById("hard").value = defaultBind.hard;
     document.getElementById("clockwise").value = defaultBind.clockwise;
     document.getElementById("counterClockwise").value = defaultBind.counterClockwise;
 
