@@ -30,6 +30,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 2%;
+    padding-bottom: 2%;
 }
 
 .grid{
@@ -153,6 +154,10 @@ body {
     padding-right: 10vw;
 }
 
+#buttons{
+    display: none;
+}
+
 @media (max-width: 570px)
 {
 
@@ -185,5 +190,9 @@ body {
 
     .game-over{
         width: 75%;
+    }
+
+    #buttons{
+        display: flex;
     }
 }
