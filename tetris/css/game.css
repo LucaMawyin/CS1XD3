@@ -151,11 +151,53 @@ body {
 #game{
     display: flex;
     gap: 2%;
-    padding-right: 10vw;
+    padding-right: 5vw;
 }
 
-#buttons{
+.mobile-buttons{
+    width: 100vw;
     display: none;
+    gap: 10vw;
+    justify-content: space-between;
+}
+
+#d-pad div{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#d-pad button{
+    width: 30px;
+    height: 30px;
+}
+
+#a-b{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 10vw;
+}
+
+#a-b button{
+    width: 30px;
+    height: 30px;  
+}
+
+@media (max-width: 768px)
+{
+    .mobile-buttons{
+        display: flex;
+    }
+    
+    #d-pad{
+        margin-left: 5vw;
+    }
+
+    #a-b{
+        margin-right: 5vw;
+    }
 }
 
 @media (max-width: 570px)
@@ -190,9 +232,5 @@ body {
 
     .game-over{
         width: 75%;
-    }
-
-    #buttons{
-        display: flex;
     }
 }
