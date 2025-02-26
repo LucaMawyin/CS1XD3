@@ -9,6 +9,7 @@
     font-family: 'Pixel', 'Tetris', sans-serif;
     cursor: default;
     user-select: none;
+    touch-action: manipulation;
 }
 
 html,body{

@@ -9,6 +9,7 @@
     background-image: url("../images/tetris-background.jpg");
     user-select: none;
     font-family: 'Pixel';
+    touch-action: manipulation;
 }
 
 html, body{
