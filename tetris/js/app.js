@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameOver = document.getElementsByClassName('game-over')[0];
     const container = document.querySelectorAll('.container');
     let quitBtn = document.getElementById('quitBtn');
-    
+
     // Default values
     const MAX_LEVEL = 10;
     let level = 1;
@@ -47,6 +47,69 @@ document.addEventListener('DOMContentLoaded', () => {
     // Keybinds
     let binds = JSON.parse(localStorage.getItem("binds"));
     let backgroundColour = localStorage.getItem("colour");
+
+    // Binding the d pad
+    const dPadLeft = document.querySelector('.d-pad #left');
+    dPadLeft.addEventListener('click', () => {
+        const keystroke = new KeyboardEvent('keydown', {
+            key:binds.left
+        });
+
+        keyInput(binds.left)
+    });
+
+    const dPadRight = document.querySelector('.d-pad #right');
+    dPadRight.addEventListener('click', () => {
+        const keystroke = new KeyboardEvent('keydown', {
+            key:binds.right
+        });
+
+        keyInput(binds.right)
+    });
+
+    const dPadDown = document.querySelector('.d-pad #down');
+    dPadDown.addEventListener('touchstart', () => {
+        const keystroke = new KeyboardEvent('keydown', {
+            key:binds.down
+        });
+
+        keyInput(binds.down);
+    });
+
+    dPadDown.addEventListener('touchend', () => {
+        unSoftDrop();
+    });
+
+    const dPadUp = document.querySelector('.d-pad #up');
+    dPadUp.addEventListener('click', () => {
+        const keystroke = new KeyboardEvent('keydown', {
+            key:binds.hard
+        });
+
+        keyInput(binds.hard);
+    });
+
+    const a = document.querySelector('.a-b #clockwise');
+    a.addEventListener('click', () => {
+        const keystroke = new KeyboardEvent('keydown', {
+            key:binds.clockwise
+        });
+
+        keyInput(binds.clockwise);
+    });
+
+    const b = document.querySelector('.a-b #counterClockwise');
+    b.addEventListener('click', () => {
+        const keystroke = new KeyboardEvent('keydown', {
+            key:binds.counterClockwise
+        });
+
+        keyInput(binds.counterClockwise);
+    });
+
+
+
+    
 
     // Setting each individual square to background colour
     // Otherwise colour seeps through corners
@@ -313,15 +376,15 @@ document.addEventListener('DOMContentLoaded', () => {
         show();
     }
 
-    document.addEventListener("keydown", (e) => {
-
+    function keyInput(e)
+    {
         // Bind escape key to pause
-        if (e.key.toLowerCase() === "escape") pauseGame();
+        if (e === "escape") pauseGame();
 
         // Only allow stuff to work during unpause time
         if (!paused)
         {
-            switch (e.key.toLowerCase())
+            switch (e)
             {
 
                 // Moving left/right
@@ -352,11 +415,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     rotateCounterClockwise();
                     break;
 
-                case "w":
+                case binds.hard:
                     clearInterval(timerId);
                     timerId = setInterval(down, 0);
             }            
         }
+    }
+
+    document.addEventListener("keydown", (e) => {
+        keyInput(e.key.toLowerCase());
     });
 
 
@@ -414,6 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
             game.style.display = "flex";
             document.querySelector('#info h1').style.display = "none";
             document.querySelector('.container').style.height = "fit-content";
+            document.querySelector('.mobile-buttons').style.display = "flex";
             timerId = setInterval(down, dropSpeed);
             paused = false;
         }
@@ -425,6 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
             game.style.display = "none";
             document.querySelector('#info h1').style.display = "inline";
             document.querySelector('.container').style.height = "75%";
+            document.querySelector('.mobile-buttons').style.display = "none";
             clearInterval(timerId);
             timerId = null;
             paused = true;
