@@ -346,9 +346,14 @@ document.addEventListener('DOMContentLoaded', () => {
         remove();
 
         const nextRotation = (currentRotation + 1) % 4;
+        const nextBlock = shapes[currentBlock][nextRotation];
 
-        currentRotation = nextRotation;
-        current = shapes[currentBlock][currentRotation];
+        // If rotation is not valid then no rotation
+        if (!willCollide(nextBlock))
+        {
+            currentRotation = nextRotation;
+            current = nextBlock;
+        }
 
         show();
     }
@@ -358,11 +363,20 @@ document.addEventListener('DOMContentLoaded', () => {
         remove();
 
         const nextRotation = (currentRotation + 3) % 4;
+        const nextBlock = shapes[currentBlock][nextRotation];
 
-        currentRotation = nextRotation;
-        current = shapes[currentBlock][currentRotation];
+        // If rotation is not valid then no rotation
+        if (!willCollide(nextBlock))
+        {
+            currentRotation = nextRotation;
+            current = nextBlock;
+        }
 
         show();
+    }
+    function willCollide(newBlock) {
+        // Check if any of the new rotated block's positions are already taken
+        return newBlock.some(index => squares[currentPosition + index]?.classList.contains('taken'));
     }
 
 
