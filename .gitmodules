@@ -1,6 +1,3 @@
-[submodule "canvas_assignment"]
-	path = canvas_assignment
-	url = https://github.com/LucaMawyin/canvas_assignment
 [submodule "draw"]
 	path = draw
 	url = https://github.com/LucaMawyin/draw
