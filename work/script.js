@@ -74,17 +74,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
-
-// If user presses try again button
-document.addEventListener("DOMContentLoaded", () => {
-
-    const btn = document.getElementById("try-again");
-
-    // If btn has run-script class then do not reload
-    if (!btn.classList.contains("run-script")){
-        btn.addEventListener("click", (event) =>{
-            location.reload();
-        });
-    }
-
-});
