@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Test Bed</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <style type="text/css">
+        #testCanvas {
+            background-color: silver;
+            margin: 30px;
+        }
+        body {
+            text-align: center;
+            color:silver;
+            background-color: rgb(53, 66, 29);
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            let nextHouseX = 50;
+            let lastHouseX = 0;
+            let stars = [];
+
+            const canvas = document.getElementById("testCanvas");
+            const ctx = canvas.getContext("2d");
+            
+            document.querySelectorAll("input[type=button]").forEach(button =>{
+
+                button.addEventListener("click", () => {
+                    let num = parseInt(button.value[button.value.length-1]);
+
+                    switch (num) {
+                        case 1:
+                            break;
+                        case 2:
+                            drawHouse();
+                            break;
+                        case 3:
+                            drawCar();
+                            break;
+                        case 4:
+                            drawStar();
+                            break;
+                    }
+                });
+
+            });
+
+            function drawHouse(){
+                const houseWidth = 50;
+                const houseHeight = 50;
+
+                // Body
+                ctx.beginPath();
+                ctx.rect(lastHouseX, 300, houseWidth, houseHeight);
+                ctx.stroke();
+
+                // Roof
+                ctx.beginPath();
+                ctx.moveTo(lastHouseX, 300);
+                ctx.lineTo(lastHouseX + 25, 270)
+                ctx.lineTo(lastHouseX + 50, 300)
+                ctx.closePath();
+                ctx.stroke();
+
+                lastHouseX = nextHouseX;
+                nextHouseX += 50;
+
+            }
+
+            function drawCar(){
+                const carWidth = 50;
+                const carHeight = 20;
+
+                if (lastHouseX == 0) return;
+
+                lastHouseX = (lastHouseX > 400) ? 400 : lastHouseX;
+
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Redrawing canvas
+                for (let x = 0; x < lastHouseX; x += 50) {
+                    ctx.beginPath();
+                    ctx.rect(x, 300, 50, 50);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(x, 300);
+                    ctx.lineTo(x + 25, 270);
+                    ctx.lineTo(x + 50, 300);
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+
+                // Redraw Stars
+                stars.forEach(star => {
+                    printStar(star.x, star.y, star.colour, star.size);
+                });
+
+                // Body
+                ctx.beginPath();
+                ctx.rect(lastHouseX - 50, 370, carWidth, carHeight);
+                ctx.stroke();
+                ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(lastHouseX - 40, 390, 5, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(lastHouseX - 10, 390, 5, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            function drawStar() {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * 100;
+                const colour = `hsl(${Math.random() * 360}, 100%, 70%)`
+
+                const size = 10;
+
+                // Save star
+                stars.push({ x, y, colour, size });
+
+                printStar(x,y,colour,size);
+            }
+            
+            function printStar(x,y,colour,size){
+                ctx.save();
+                ctx.beginPath();
+                ctx.translate(x, y);
+                ctx.moveTo(0, -size);
+
+                for (let i = 0; i < 5; i++) {
+                    ctx.rotate(Math.PI / 5);
+                    ctx.lineTo(0, -size * 0.5);
+                    ctx.rotate(Math.PI / 5);
+                    ctx.lineTo(0, -size);
+                }
+
+                ctx.closePath();
+                ctx.fillStyle = colour;
+                ctx.fill();
+                ctx.restore();
+            }
+        });
+
+
+
+    </script>
+</head>
+
+<body>
+    <h1>Canvas Test Bed 4</h1>
+    <canvas id="testCanvas" width="400" height="400"></canvas>
+    <br>
+    <input type="button" value="Button 1">
+    <input type="button" value="Button 2">
+    <input type="button" value="Button 3">
+    <input type="button" value="Button 4">
+</body>
+
+</html>
