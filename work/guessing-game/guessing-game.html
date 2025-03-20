@@ -4,6 +4,7 @@
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>Luca Mawyin</title>
     <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
 
@@ -37,22 +38,33 @@
 
     </div>
 
-    <div class="content" style="align-items: center; height: 40%;">
-        <div style="display:flex; flex-direction: column; width: 50%; height: 10vh; align-items: center;">
-            <input type="number" style="width: 20%;">
-            <input type="button" style="width: 10%;" value="Guess">
+    <div id="game">
+        <div id="guess-box">
+            <h2>Guess the number from 1-100</h2>
+            <input type="number">
+            <input type="button"value="Guess">
+            <p id="guess-count">Guesses: 0/10</p>
         </div>
     </div>
 
     <dialog id="wrong">
-        <p>Incorrect</p>
-        <p id="guess-num">Guesses: </p>
+        <p></p>
         <button>OK</button>
     </dialog>
 
     <dialog id="correct">
         <p>Correct!</p>
-        <button>OK</button>
+        <button>Restart</button>
+    </dialog>
+
+    <dialog id="lose">
+        <p>YOU LOSE</p>
+        <button>Restart</button>
+    </dialog>
+
+    <dialog id="loaded">
+        <p>Game Successfully Reloaded</p>
+        <button>Resume</button>
     </dialog>
 
     <script src="../script.js"></script>

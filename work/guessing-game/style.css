@@ -1,0 +1,27 @@
+@import url("../../css/global.css");
+
+#game{
+    display: flex;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+#guess-box{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 50%;
+    border: 1px solid rgb(var(--shadow-color), var(--shadow-color), var(--shadow-color));
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    padding: 1%;
+}
+
+#guess-box input[type="number"]{
+    height: 20%;
+    width: 30%;
+    font-size: 2vw;
+    text-align: center;
+}
