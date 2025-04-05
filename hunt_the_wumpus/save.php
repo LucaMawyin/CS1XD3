@@ -66,7 +66,7 @@ $topPlayers = $topPlayersStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <title>Hunt The Wumpus Leaderboard</title>

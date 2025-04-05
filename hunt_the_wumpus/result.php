@@ -1,18 +1,13 @@
 <?php
-// result.php
 
-require 'connect.php'; // Include DB connection
+// Connect to db
+require 'connect.php';
 
-// Get the row and column from the URL
-$row = isset($_GET['row']) ? (int)$_GET['row'] : 0;
-$column = isset($_GET['column']) ? (int)$_GET['column'] : 0;
+// Get row and column (default to 1 if not set)
+$row = isset($_GET['row']) ? (int)$_GET['row'] : 1;
+$column = isset($_GET['column']) ? (int)$_GET['column'] : 1;
 
-// Basic validation
-if ($row < 1 || $row > 7 || $column < 1 || $column > 7) {
-    die("Invalid coordinates.");
-}
-
-// Query the database to check for Wumpus at given location
+// Check db at coords
 $query = "SELECT has_wumpus FROM wumpus WHERE row_num = :row AND column_num = :column";
 $stmt = $dbh->prepare($query);
 $stmt->bindParam(':row', $row);
@@ -38,15 +33,15 @@ $hasWumpus = $result && $result['has_wumpus'];
 
         <h1>Hunt the Wumpus!</h1>
         <?php if ($hasWumpus): ?>
-            <p>You found the Wumpus!</p>
+            <h2>You found the Wumpus!</h2>
         <?php elseif ($result): ?>
-            <p>You did not find the Wumpus</p>
+            <h2>You did not find the Wumpus</h2>
         <?php else: ?>
-            <p>This cell doesn't exist</p>
+            <h2>This cell doesn't exist. You lose</h2>
         <?php endif; ?>
 
         <form id="info" method="post" action="save.php">
-            <input type="hidden" name="game_status" value="<?php echo $hasWumpus ? 1 : 0; ?>">
+            <input type="hidden" name="game_status" value="<?php echo $hasWumpus ?>">
 
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
