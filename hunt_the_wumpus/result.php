@@ -1,9 +1,30 @@
 <?php
-include "connect.php";
-?>
+// result.php
 
+require 'connect.php'; // Include DB connection
+
+// Get the row and column from the URL
+$row = isset($_GET['row']) ? (int)$_GET['row'] : 0;
+$column = isset($_GET['column']) ? (int)$_GET['column'] : 0;
+
+// Basic validation
+if ($row < 1 || $row > 7 || $column < 1 || $column > 7) {
+    die("Invalid coordinates.");
+}
+
+// Query the database to check for Wumpus at given location
+$query = "SELECT has_wumpus FROM wumpus WHERE row_num = :row AND column_num = :column";
+$stmt = $dbh->prepare($query);
+$stmt->bindParam(':row', $row);
+$stmt->bindParam(':column', $column);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$hasWumpus = $result && $result['has_wumpus'];
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <title>Hunt The Wumpus Results</title>
@@ -14,46 +35,27 @@ include "connect.php";
 
 <body>
     <div id="container">
+
         <h1>Hunt the Wumpus!</h1>
+        <?php if ($hasWumpus): ?>
+            <p>You found the Wumpus!</p>
+        <?php elseif ($result): ?>
+            <p>You did not find the Wumpus</p>
+        <?php else: ?>
+            <p>This cell doesn't exist</p>
+        <?php endif; ?>
 
-        <?php
+        <form id="info" method="post" action="save.php">
+            <input type="hidden" name="game_status" value="<?php echo $hasWumpus ? 1 : 0; ?>">
 
-        $row = isset($_GET['row']) ? (int)$_GET['row'] : 0;
-        $column = isset($_GET['column']) ? (int)$_GET['column'] : 0;
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
 
-        // Valid row and column
-        if ($row >= 1 && $row <= 7 && $column >= 1 && $column <= 7) {
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required pattern="^[^@]+@[^@]+\.[^@]+$" title='Please enter a valid email'>
 
-            // Preparing SQL query
-            $query = "SELECT has_wumpus FROM wumpus WHERE row_num = ? AND column_num = ?";
-
-            // Creating and executing statement
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("ii", $row, $column);
-            $stmt->execute();
-
-            // Creating a variable to hold the result
-            $stmt->bind_result($has_wumpus);
-
-            // Getting result
-            $stmt->fetch();
-            if ($has_wumpus) {
-                echo "<h2>You found the Wumpus at ($row, $column)</h2>";
-            } else {
-                echo "<h2>No Wumpus at ($row, $column)</h2>";
-            }
-
-            $stmt->close();
-        } 
-        
-        // Invalid row or column redirects to home page
-        else {
-            header("Location: index.php");
-            exit();
-        }
-
-        $conn->close();
-        ?>
+            <input type="submit" value="Submit">
+        </form>
     </div>
 </body>
 

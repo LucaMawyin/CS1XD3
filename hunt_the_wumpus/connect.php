@@ -5,9 +5,13 @@ $username = 'root';
 $password = '';
 $dbname = 'mawyinl_db';
 
-$conn = new mysqli($host, $username, $password, $dbname, 3307);
+try {
+    $dbh = new PDO('mysql:host=localhost;dbname=mawyinl_db;port=3307',
+    'root',
+    '');
 
-if ($conn->connect_error) {
-    die("Database connection failed: " . $conn->connect_error);
+} catch(Exception $e) {
+    die("ERROR: {$e->getMessage()}");
 }
+
 ?>

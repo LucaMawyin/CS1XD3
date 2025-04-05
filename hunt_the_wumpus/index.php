@@ -4,7 +4,7 @@ Sam Scott, McMaster University, 2025 -->
 <html>
 
 <head>
-    <title>Hunt The Wumpus Results</title>
+    <title>Hunt The Wumpus</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/wumpus.css">
