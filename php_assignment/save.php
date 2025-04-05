@@ -6,7 +6,7 @@ require 'connect.php';
 // Making sure form is proper
 if (isset($_POST['username'], $_POST['email'], $_POST['game_status'])) {
     $username = $_POST['username'];
-    $email = $_POST['email'];
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $gameStatus = $_POST['game_status'];
     
     // Determining wins and losses
@@ -19,16 +19,24 @@ if (isset($_POST['username'], $_POST['email'], $_POST['game_status'])) {
     }
 
     // Check if user exists
-    $query = "SELECT id, wins, losses FROM wumpus_players WHERE email = :email OR username = :username";
+    $query = "SELECT id, username, wins, losses FROM wumpus_players WHERE email = :email";
     $stmt = $dbh->prepare($query);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':username', $username);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // User exists
     if ($user) {
-        
+
+        // Check if username is different
+        if ($user['username'] !== $username) {
+            $updateQuery = "UPDATE wumpus_players SET username = :username WHERE id = :id";
+            $updateStmt = $dbh->prepare($updateQuery);
+            $updateStmt->bindParam(':username', $username);
+            $updateStmt->bindParam(':id', $user['id']);
+            $updateStmt->execute();
+        }
+
         // Update wins and losses
         $newWins = $user['wins'] + $wins;
         $newLosses = $user['losses'] + $losses;
@@ -55,8 +63,6 @@ if (isset($_POST['username'], $_POST['email'], $_POST['game_status'])) {
 
         $stmt->execute();
     }
-} else {
-    echo "Please fill out the form.";
 }
 
 $topPlayersQuery = "SELECT username, email, wins, losses, last_date_played FROM wumpus_players ORDER BY wins DESC LIMIT 10";

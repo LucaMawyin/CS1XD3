@@ -3,9 +3,21 @@
 // Connect to db
 require 'connect.php';
 
+// Longest if statement ever
+// Redirect back home if any post parameters are wrong
+if (!(isset($_GET['row']) && isset($_GET['column'])) || 
+    (isset($_GET['row']) && isset($_GET['column'])) && 
+    (
+        (int)$_GET['row'] < 1 || (int)$_GET['row'] > 7 || 
+        (int)$_GET['column'] < 1 || (int)$_GET['column'] > 7
+    )) {
+    header('Location: index.php');
+    exit;
+}
+
 // Get row and column (default to 1 if not set)
-$row = isset($_GET['row']) ? (int)$_GET['row'] : 1;
-$column = isset($_GET['column']) ? (int)$_GET['column'] : 1;
+$row = (int)$_GET['row'];
+$column = (int)$_GET['column'];
 
 // Check db at coords
 $query = "SELECT has_wumpus FROM wumpus WHERE row_num = :row AND column_num = :column";
