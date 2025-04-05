@@ -65,6 +65,14 @@ if (isset($_POST['username'], $_POST['email'], $_POST['game_status'])) {
     }
 }
 
+// Current user's data
+$currentUserQuery = "SELECT username, wins, losses, last_date_played FROM wumpus_players WHERE email = :email";
+$currentUserStmt = $dbh->prepare($currentUserQuery);
+$currentUserStmt->bindParam(':email', $email);
+$currentUserStmt->execute();
+$currentUser = $currentUserStmt->fetch(PDO::FETCH_ASSOC);
+
+// Top 10 players' data
 $topPlayersQuery = "SELECT username, email, wins, losses, last_date_played FROM wumpus_players ORDER BY wins DESC LIMIT 10";
 $topPlayersStmt = $dbh->prepare($topPlayersQuery);
 $topPlayersStmt->execute();
@@ -83,6 +91,17 @@ $topPlayers = $topPlayersStmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <div id="container">
+
+        <?php if ($currentUser): ?>
+            <h1>Your Stats</h1>
+            <p><strong>Username:</strong> <?php echo $currentUser['username'] ?></p>
+            <p><strong>Wins:</strong> <?php echo $currentUser['wins'] ?></p>
+            <p><strong>Losses:</strong> <?php echo $currentUser['losses'] ?></p>
+            <p><strong>Last Played:</strong> <?php echo $currentUser['last_date_played'] ?></p>
+        <?php else: ?>
+            <p>You are not currently logged in</p>
+        <?php endif; ?>
+
         <h1>Wumpus Leaderboard</h1>
 
         <h2>Top 10 Players</h2>
@@ -98,10 +117,10 @@ $topPlayers = $topPlayersStmt->fetchAll(PDO::FETCH_ASSOC);
             <tbody>
                 <?php foreach ($topPlayers as $player): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($player['username']); ?></td>
-                        <td><?php echo htmlspecialchars($player['wins']); ?></td>
-                        <td><?php echo htmlspecialchars($player['losses']); ?></td>
-                        <td><?php echo htmlspecialchars($player['last_date_played']); ?></td>
+                        <td><?php echo $player['username'] ?></td>
+                        <td><?php echo $player['wins'] ?></td>
+                        <td><?php echo $player['losses'] ?></td>
+                        <td><?php echo $player['last_date_played'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
