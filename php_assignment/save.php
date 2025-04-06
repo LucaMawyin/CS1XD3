@@ -99,7 +99,7 @@ $topPlayers = $topPlayersStmt->fetchAll(PDO::FETCH_ASSOC);
             <p><strong>Losses:</strong> <?php echo $currentUser['losses'] ?></p>
             <p><strong>Last Played:</strong> <?php echo $currentUser['last_date_played'] ?></p>
         <?php else: ?>
-            <p>You are not currently logged in</p>
+            <p>You are not currently logged in to a valid user</p>
         <?php endif; ?>
 
         <h1>Wumpus Leaderboard</h1>
