@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Password Checker</title>
+  <style>
+    input[type="password"] {
+      padding: 8px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      outline: none;
+    }
+
+    input[type="password"].valid {
+      border-color: green !important;
+    }
+
+    input[type="password"].invalid {
+      border-color: red !important;
+    }
+
+    input[type="password"]:focus.valid {
+      border-color: green !important;
+    }
+
+    input[type="password"]:focus.invalid {
+      border-color: red !important;
+    }
+
+    #feedback {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Enter your password:</h2>
+  <input type="password" id="password" placeholder="Type a password...">
+  <div id="feedback"></div>
+
+  <script>
+    const passwordInput = document.getElementById('password');
+    const feedback = document.getElementById('feedback');
+
+    passwordInput.addEventListener('input', () => {
+      const password = passwordInput.value;
+
+      fetch('check_password.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `password=${encodeURIComponent(password)}`
+      })
+      .then(response => response.text())
+      .then(result => {
+        if (result.trim() === "OK") {
+          passwordInput.classList.add('valid');
+          passwordInput.classList.remove('invalid');
+          feedback.textContent = "Strong password!";
+          feedback.style.color = "green";
+        } else {
+          passwordInput.classList.add('invalid');
+          passwordInput.classList.remove('valid');
+          feedback.innerText = result;
+          feedback.style.color = "red";
+        }
+      })
+      .catch(error => {
+        console.error("Fetch error:", error);
+        passwordInput.classList.remove('valid');
+        passwordInput.classList.add('invalid');
+        feedback.textContent = "An error occurred.";
+        feedback.style.color = "red";
+      });
+    });
+  </script>
+
+</body>
+</html>

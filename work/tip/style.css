@@ -1,0 +1,29 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+.container {
+    width: 80vw;
+    max-width: 30vw;
+    background-color: white;
+    border: 0.2vh dashed #333;
+    padding: 4vh 6vw;
+    box-shadow: 0.5vh 0.5vh 2vh rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+  
+h2 {
+margin-top: 0;
+margin-bottom: 3vh;
+font-size: 2.2vh;
+border-bottom: 0.2vh dashed #333;
+padding-bottom: 1vh;
+}
+  

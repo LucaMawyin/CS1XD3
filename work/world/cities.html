@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>City Population Filter</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .city {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Filter Cities by Population</h1>
+    <form id="populationForm">
+        <label>Min Population: <input type="number" name="min" required></label>
+        <label>Max Population: <input type="number" name="max" required></label>
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('populationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const min = this.min.value;
+            const max = this.max.value;
+
+            fetch(`get_cities.php?min=${min}&max=${max}`)
+                .then(response => response.json())
+                .then(data => {
+                    const results = document.getElementById('results');
+                    results.innerHTML = '';
+
+                    if (data.error) {
+                        results.innerHTML = `<p style="color:red;">Error: ${data.error}</p>`;
+                        return;
+                    }
+
+                    if (data.length === 0) {
+                        results.innerHTML = '<p>No cities found.</p>';
+                        return;
+                    }
+
+                    data.forEach(city => {
+                        const div = document.createElement('div');
+                        div.className = 'city';
+                        div.innerHTML = `
+                            <strong>${city.city_name}</strong> in ${city.District}<br>
+                            <em>${city.country_name} (${city.Region})</em><br>
+                            Population: ${city.city_population.toLocaleString()}<br>
+                            Surface Area: ${city.SurfaceArea} km²<br>
+                            Life Expectancy: ${city.LifeExpectancy ?? 'N/A'} years
+                        `;
+                        results.appendChild(div);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tip Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Tip Calculator</h2>
+
+        <form id="tipForm" action="calculate_tip.php" method="POST">
+
+            <label for="server">Server Name:</label><br>
+            <input type="text" name="server" required><br><br>
+
+            <label for="email">Customer Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="confirm_email">Confirm Email:</label><br>
+            <input type="email" id="confirm_email" name="confirm_email" required><br><br>
+
+            <label for="amount">Amount of Bill ($):</label><br>
+            <input type="number" name="amount" step="0.01" min="0" required><br><br>
+
+            <label for="tip">Tip Percentage (%):</label><br>
+            <input type="number" name="tip" min="0" required><br><br>
+
+            <label for="cc">Credit Card Number:</label><br>
+            <input type="text" name="cc" pattern="\d{16}" required><br><br>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+    </div>
+
+    <script>
+        document.getElementById('tipForm').addEventListener('submit', function(event) {
+            const email = document.getElementById('email').value.trim();
+            const confirmEmail = document.getElementById('confirm_email').value.trim();
+
+            if (email !== confirmEmail) {
+            alert('Error: Email addresses do not match.');
+            event.preventDefault();
+            }
+        });
+    </script>
+</body>
+  
+
+</html>

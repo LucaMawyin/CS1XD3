@@ -1,16 +1,4 @@
 
-// Animation delay for splash page nav links
-document.addEventListener("DOMContentLoaded", () => {
-    const links = document.querySelectorAll("#main-nav a");
-
-    links.forEach((link,index) => {
-        setTimeout(() => {
-            link.style.animationDelay = `${index * 500}ms`;
-        }, index * 500);
-    });
-});
-
-
 // Changing themes
 const githubImg = document.getElementById("github-img");
 const toggleSwitch = document.getElementById("check");
